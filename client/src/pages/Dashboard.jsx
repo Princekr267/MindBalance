@@ -137,8 +137,17 @@ const Dashboard = () => {
         </div>
 
         {/* Recommended Meditations */}
-        <div className="mt-12">
-          <h3 className="text-2xl font-bold text-slate-800 mb-6">Recommended for You</h3>
+        {/* Recommended Meditations */}
+        <div className="mt-12 bg-gradient-to-br from-violet-100 to-purple-50 p-8 rounded-3xl border border-violet-200">
+          <div className="flex items-center mb-6">
+            <div className="p-3 bg-violet-600 rounded-xl text-white mr-4 shadow-lg shadow-violet-500/30">
+              <Activity size={24} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-slate-800">Recommended for You</h3>
+              <p className="text-slate-600">Curated sessions based on your stress level.</p>
+            </div>
+          </div>
           <MeditationList score={latestScore !== '-' ? latestScore : null} />
         </div>
       </div>

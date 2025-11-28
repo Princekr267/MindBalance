@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowRight } from 'lucide-react';
+import MeditationList from '../components/MeditationList';
 
 const Results = () => {
   const location = useLocation();
@@ -45,6 +46,14 @@ const Results = () => {
           </div>
         </motion.div>
 
+        <div className="mb-12">
+          <h3 className="text-2xl font-bold text-slate-800 mb-6 flex items-center">
+            <span className="bg-violet-100 text-violet-600 p-2 rounded-lg mr-3">🧘‍♀️</span>
+            Recommended Meditations
+          </h3>
+          <MeditationList score={stressScore} />
+        </div>
+
         <div className="grid md:grid-cols-2 gap-6">
           {aiData.recommendations.map((rec, index) => (
             <motion.div 
@@ -64,6 +73,10 @@ const Results = () => {
             </motion.div>
           ))}
         </div>
+
+
+
+
 
         <div className="mt-12 text-center">
           <Link to="/dashboard" className="inline-flex items-center px-8 py-3 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 transition-colors">
