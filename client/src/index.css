@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  /* Calming Color Palette */
+  --color-primary: #8b5cf6; /* Violet 500 */
+  --color-primary-dark: #7c3aed; /* Violet 600 */
+  --color-secondary: #06b6d4; /* Cyan 500 */
+  --color-accent: #f472b6; /* Pink 400 */
+  --color-background: #f0f9ff; /* Sky 50 */
+  --color-surface: #ffffff;
+  --color-text: #1e293b; /* Slate 800 */
+  --color-text-muted: #64748b; /* Slate 500 */
+
+  /* Dark Mode Overrides (handled via class strategy usually, but defining vars here) */
+  --color-dark-background: #0f172a; /* Slate 900 */
+  --color-dark-surface: #1e293b; /* Slate 800 */
+  --color-dark-text: #f8fafc; /* Slate 50 */
+}
+
+/* Custom Utilities for Glassmorphism */
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-xl;
+  }
+  
+  .glass-dark {
+    @apply bg-slate-900/70 backdrop-blur-lg border border-white/10 shadow-xl;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent;
+  }
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 font-sans antialiased selection:bg-violet-200 selection:text-violet-900;
+}
+
+/* Dark mode support if we add a toggle later */
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-slate-900 text-slate-50;
+  }
+}
