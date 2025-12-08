@@ -17,6 +17,12 @@ A mental health and meditation application built with React (frontend) and Node.
 - Node.js (v18 or higher)
 - npm or yarn
 
+   ## Running the code Front End
+
+  Run `npm i` to install the dependencies.
+
+  Run `npm run dev` to start the development server.
+
 ### Installation
 
 1. Clone the repository:
