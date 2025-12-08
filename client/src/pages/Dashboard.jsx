@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { Calendar, TrendingUp, Activity, Plus } from 'lucide-react';
 import { motion } from 'framer-motion';
 import MeditationList from '../components/MeditationList';
@@ -11,6 +11,8 @@ const Dashboard = () => {
   const { user } = useAuth();
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const emotions = ['Anxious', 'Tired', 'Angry', 'Calm', 'Happy'];
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -33,6 +35,13 @@ const Dashboard = () => {
     score: entry.stressScore
   }));
 
+  // Prepare emotion data
+  const emotionCounts = emotions.reduce((acc, emo) => {
+    acc[emo] = history.filter(entry => entry.emotion === emo).length;
+    return acc;
+  }, {});
+  const emotionData = Object.keys(emotionCounts).map(emo => ({ emotion: emo, count: emotionCounts[emo] }));
+
   const latestScore = history.length > 0 ? history[0].stressScore : '-';
   const averageScore = history.length > 0 
     ? (history.reduce((acc, curr) => acc + curr.stressScore, 0) / history.length).toFixed(1) 
@@ -51,7 +60,7 @@ const Dashboard = () => {
             <h1 className="text-3xl font-bold text-slate-800">Welcome back, {user?.name}</h1>
             <p className="text-slate-500">Here's your wellness overview.</p>
           </div>
-          <Link to="/assess" className="flex items-center px-6 py-3 bg-violet-600 text-white rounded-xl font-semibold hover:bg-violet-700 transition-colors shadow-lg shadow-violet-500/30">
+          <Link to="/checkin" className="flex items-center px-6 py-3 bg-violet-600 text-white rounded-xl font-semibold hover:bg-violet-700 transition-colors shadow-lg shadow-violet-500/30">
             <Plus className="mr-2" size={20} /> New Check-in
           </Link>
         </header>
@@ -79,7 +88,7 @@ const Dashboard = () => {
         </div>
 
         {/* Chart Section */}
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8 mb-12">
           <div className="lg:col-span-2 glass p-8 rounded-3xl">
             <h3 className="text-xl font-bold text-slate-800 mb-6">Stress Trends</h3>
             <div className="h-[300px] w-full">
@@ -110,28 +119,27 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Recent Activity */}
+          {/* Emotion Count Chart */}
           <div className="glass p-8 rounded-3xl">
-            <h3 className="text-xl font-bold text-slate-800 mb-6">Recent History</h3>
-            <div className="space-y-4">
-              {history.slice(0, 5).map((entry, i) => (
-                <motion.div 
-                  key={entry._id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="flex items-center justify-between p-4 rounded-xl bg-white/50 hover:bg-white transition-colors"
-                >
-                  <div>
-                    <div className="font-semibold text-slate-700">Assessment</div>
-                    <div className="text-xs text-slate-500">{new Date(entry.timestamp).toLocaleDateString()}</div>
-                  </div>
-                  <div className={`font-bold ${entry.stressScore > 7 ? 'text-red-500' : entry.stressScore > 4 ? 'text-yellow-500' : 'text-green-500'}`}>
-                    Score: {entry.stressScore}
-                  </div>
-                </motion.div>
-              ))}
-              {history.length === 0 && <p className="text-slate-500">No recent activity.</p>}
+            <h3 className="text-xl font-bold text-slate-800 mb-6">Emotion Summary</h3>
+            <div className="h-[300px] w-full">
+              {history.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={emotionData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                    <XAxis dataKey="emotion" stroke="#64748b" />
+                    <YAxis stroke="#64748b" />
+                    <Tooltip 
+                      contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.9)', borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                    />
+                    <Bar dataKey="count" fill="#10b981" />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex items-center justify-center text-slate-400">
+                  No data available yet.
+                </div>
+              )}
             </div>
           </div>
         </div>

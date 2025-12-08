@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// Curated list of meditations
 const meditations = [
   {
     id: 1,
@@ -9,7 +8,7 @@ const meditations = [
     category: "Anxiety",
     duration: "10 min",
     url: "https://www.youtube.com/watch?v=O-6f5wQXSu8", // Placeholder
-    image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=500&q=80",
+    image: "https://picsum.photos/500/300?random=1",
     minScore: 7, // Recommended for high stress
     maxScore: 10
   },
@@ -19,7 +18,7 @@ const meditations = [
     category: "Sleep",
     duration: "15 min",
     url: "https://www.youtube.com/watch?v=aEqlQvczMJQ",
-    image: "https://images.unsplash.com/photo-1511296933631-18b5f0bc0846?w=500&q=80",
+    image: "https://picsum.photos/500/300?random=2",
     minScore: 6,
     maxScore: 10
   },
@@ -29,7 +28,7 @@ const meditations = [
     category: "Mindfulness",
     duration: "5 min",
     url: "https://www.youtube.com/watch?v=ssss7V1_eyA",
-    image: "https://images.unsplash.com/photo-1559595500-e15296bdbb48?w=500&q=80",
+    image: "https://picsum.photos/500/300?random=3",
     minScore: 0,
     maxScore: 10 // Good for everyone
   },
@@ -39,7 +38,7 @@ const meditations = [
     category: "Focus",
     duration: "12 min",
     url: "https://www.youtube.com/watch?v=zSkFFW--Ma0",
-    image: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=500&q=80",
+    image: "https://picsum.photos/500/300?random=4",
     minScore: 0,
     maxScore: 6 // Good for lower stress/maintenance
   },
@@ -49,7 +48,7 @@ const meditations = [
     category: "Happiness",
     duration: "8 min",
     url: "https://www.youtube.com/watch?v=Komt033d59s",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80",
+    image: "https://picsum.photos/500/300?random=5",
     minScore: 0,
     maxScore: 5
   },
@@ -59,7 +58,7 @@ const meditations = [
     category: "Stress",
     duration: "3 min",
     url: "https://www.youtube.com/watch?v=F28MGLlpP90",
-    image: "https://images.unsplash.com/photo-1444930612915-f7b557f32e69?w=500&q=80",
+    image: "https://picsum.photos/500/300?random=6",
     minScore: 8,
     maxScore: 10
   }
