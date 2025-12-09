@@ -20,11 +20,11 @@ app.get('/', (req, res) => {
   res.send('Mental Stress Tracker API is running');
 });
 
-// Database Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mental_stress_tracker';
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// Database Connection (commented out for mock testing)
+// const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mental_stress_tracker';
+// mongoose.connect(MONGODB_URI)
+//   .then(() => console.log('MongoDB connected'))
+//   .catch(err => console.error('MongoDB connection error:', err));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

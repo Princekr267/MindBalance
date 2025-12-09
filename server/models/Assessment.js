@@ -14,6 +14,11 @@ const AssessmentSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  emotion: {
+    type: String,
+    enum: ['Anxious', 'Tired', 'Angry', 'Calm', 'Happy'],
+    required: true
+  },
   aiAnalysis: {
     type: String, // JSON string or text from AI
     default: ''

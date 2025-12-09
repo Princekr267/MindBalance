@@ -3,7 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
-const User = require('../models/User');
+
+// Mock in-memory users for testing (replace with DB later)
+let users = [];
 
 // Generate JWT
 const generateToken = (id) => {
@@ -29,23 +31,24 @@ router.post('/signup', [
   console.log('Signup request received:', { name, email }); // Debug log
 
   try {
-    let user = await User.findOne({ email });
+    let user = users.find(u => u.email === email);
 
     if (user) {
       return res.status(400).json({ msg: 'User already exists' });
     }
 
-    user = new User({
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = {
+      id: Date.now().toString(),
       name,
       email,
-      password
-    });
+      password: hashedPassword
+    };
+    users.push(newUser);
 
-    await user.save();
+    const token = generateToken(newUser.id);
 
-    const token = generateToken(user._id);
-
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({ token, user: { id: newUser.id, name: newUser.name, email: newUser.email } });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
@@ -67,21 +70,21 @@ router.post('/login', [
   const { email, password } = req.body;
 
   try {
-    let user = await User.findOne({ email });
+    let user = users.find(u => u.email === email);
 
     if (!user) {
       return res.status(400).json({ msg: 'Invalid Credentials' });
     }
 
-    const isMatch = await user.matchPassword(password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       return res.status(400).json({ msg: 'Invalid Credentials' });
     }
 
-    const token = generateToken(user._id);
+    const token = generateToken(user.id);
 
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
