@@ -4,37 +4,39 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const solutions = {
-  Anxious: {
-    icon: Wind,
-    color: "#8b5cf6",
-    title: "Breathing & Grounding",
+  Low: {
+    icon: Sparkles,
+    color: "#10b981",
+    title: "Maintenance & Growth",
+    description: "You're doing well! Keep up these habits to maintain your mental wellness.",
     techniques: [
       {
-        name: "4-7-8 Breathing",
-        description: "Inhale for 4 seconds, hold for 7, exhale for 8. Repeat 4 times.",
-        duration: "2 minutes"
-      },
-      {
-        name: "5-4-3-2-1 Grounding",
-        description: "Name 5 things you see, 4 you hear, 3 you feel, 2 you smell, 1 you taste.",
-        duration: "3 minutes"
-      },
-      {
-        name: "Box Breathing",
-        description: "Inhale 4 seconds, hold 4, exhale 4, hold 4. Visualize a square.",
+        name: "Gratitude Practice",
+        description: "Write down 3 things you're grateful for today.",
         duration: "5 minutes"
+      },
+      {
+        name: "Mindful Walking",
+        description: "Take a walk and focus entirely on the sensations of moving.",
+        duration: "15 minutes"
+      },
+      {
+        name: "New Skill Learning",
+        description: "Challenge your brain by learning something new and exciting.",
+        duration: "Ongoing"
       }
     ]
   },
-  Tired: {
-    icon: Moon,
-    color: "#6366f1",
-    title: "Energy & Rest",
+  Moderate: {
+    icon: Wind,
+    color: "#f59e0b",
+    title: "Stress Reduction",
+    description: "You're feeling some strain. These techniques can help you reset.",
     techniques: [
       {
-        name: "Power Nap Technique",
-        description: "15-20 minute nap in a quiet, dark room. Set an alarm to avoid deep sleep.",
-        duration: "20 minutes"
+        name: "Box Breathing",
+        description: "Inhale 4s, hold 4s, exhale 4s, hold 4s. Repeat.",
+        duration: "5 minutes"
       },
       {
         name: "Progressive Muscle Relaxation",
@@ -42,125 +44,60 @@ const solutions = {
         duration: "10 minutes"
       },
       {
-        name: "Sleep Hygiene Tips",
-        description: "Dim lights 1 hour before bed, avoid screens, keep room cool (65-68°F).",
-        duration: "Ongoing"
+        name: "Digital Detox",
+        description: "Take a break from all screens for at least one hour.",
+        duration: "1 hour"
       }
     ]
   },
-  Angry: {
+  High: {
     icon: Flame,
     color: "#ef4444",
-    title: "Calm & Release",
+    title: "Crisis Management & Support",
+    description: "Your stress levels are high. Prioritize self-care and professional support.",
     techniques: [
       {
-        name: "Progressive Counting",
-        description: "Count backwards from 100 by 7s while taking deep breaths.",
+        name: "5-4-3-2-1 Grounding",
+        description: "5 things you see, 4 you hear, 3 feel, 2 smell, 1 taste.",
         duration: "3 minutes"
       },
       {
-        name: "Physical Release",
-        description: "Do 20 jumping jacks or take a brisk 5-minute walk to release tension.",
-        duration: "5 minutes"
+        name: "Cold Water Splash",
+        description: "Splash cold water on your face to trigger the dive reflex and calm down.",
+        duration: "1 minute"
       },
       {
-        name: "Anger Journal",
-        description: "Write down what triggered you without filtering. Then tear it up.",
-        duration: "10 minutes"
-      }
-    ]
-  },
-  Calm: {
-    icon: Sparkles,
-    color: "#10b981",
-    title: "Maintain Balance",
-    techniques: [
-      {
-        name: "Gratitude Practice",
-        description: "Write down 3 things you're grateful for today, no matter how small.",
-        duration: "5 minutes"
-      },
-      {
-        name: "Mindful Observation",
-        description: "Focus on an object for 2 minutes. Notice every detail without judgment.",
-        duration: "2 minutes"
-      },
-      {
-        name: "Loving-Kindness Meditation",
-        description: "Repeat: 'May I be happy, may I be healthy, may I be safe, may I live with ease.'",
-        duration: "5 minutes"
-      }
-    ]
-  },
-  Happy: {
-    icon: Heart,
-    color: "#f59e0b",
-    title: "Amplify Joy",
-    techniques: [
-      {
-        name: "Joy Journaling",
-        description: "Capture this moment in detail. What made you happy? Who was there? How did it feel?",
-        duration: "10 minutes"
-      },
-      {
-        name: "Share Your Joy",
-        description: "Call or message someone to share your positive experience.",
-        duration: "5 minutes"
-      },
-      {
-        name: "Future Visualization",
-        description: "Imagine yourself feeling this way again. What conditions can you recreate?",
-        duration: "5 minutes"
-      }
-    ]
-  },
-  Overwhelmed: {
-    icon: Brain,
-    color: "#ec4899",
-    title: "Simplify & Focus",
-    techniques: [
-      {
-        name: "Brain Dump",
-        description: "Write every thought and task on paper for 5 minutes without organizing.",
-        duration: "5 minutes"
-      },
-      {
-        name: "One Thing Focus",
-        description: "Choose the ONE most important task. Ignore everything else for 25 minutes.",
-        duration: "25 minutes"
-      },
-      {
-        name: "Permission to Pause",
-        description: "Take 10 deep breaths and remind yourself: 'I don't have to do everything now.'",
-        duration: "2 minutes"
+        name: "Reach Out",
+        description: "Call a trusted friend or a mental health professional immediately.",
+        duration: "Immediate"
       }
     ]
   }
 };
 
 export function SolutionsView() {
-  const [currentEmotion, setCurrentEmotion] = useState<string | null>(null);
+  const [currentLevel, setCurrentLevel] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchLatestEmotion = async () => {
+    const fetchLatestAssessment = async () => {
       try {
-        const response = await axios.get('/api/assessment/history');
+        const response = await axios.get('/api/assessments');
         if (response.data && response.data.length > 0) {
           // Get the most recent assessment
           const latestAssessment = response.data[0];
-          setCurrentEmotion(latestAssessment.emotion);
+          setCurrentLevel(latestAssessment.level);
         }
       } catch (err) {
-        console.error('Error fetching latest emotion:', err);
+        console.error('Error fetching latest assessment:', err);
         setError('Unable to load personalized recommendations');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLatestEmotion();
+    fetchLatestAssessment();
   }, []);
 
   if (loading) {
@@ -178,24 +115,12 @@ export function SolutionsView() {
     );
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen px-4 sm:px-8 lg:px-12 py-12 sm:py-16 flex items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center max-w-md"
-        >
-          <p className="text-white/70 mb-4">{error}</p>
-          <p className="text-white/50 text-sm">Showing general wellness solutions instead.</p>
-        </motion.div>
-      </div>
-    );
-  }
-
-  // If we have a current emotion, show personalized recommendations first
-  const emotionKeys = currentEmotion && solutions[currentEmotion as keyof typeof solutions] 
-    ? [currentEmotion, ...Object.keys(solutions).filter(k => k !== currentEmotion)]
+  // Determine what to show
+  // If we have a level, show that level's content prominently + others
+  // If no level/error, show all
+  
+  const levelKeys = currentLevel && solutions[currentLevel as keyof typeof solutions] 
+    ? [currentLevel, ...Object.keys(solutions).filter(k => k !== currentLevel)]
     : Object.keys(solutions);
 
   return (
@@ -210,27 +135,27 @@ export function SolutionsView() {
           Wellness Solutions
         </h2>
         <p className="text-white/70 mb-10 sm:mb-12">
-          {currentEmotion 
-            ? `Personalized techniques for when you're feeling ${currentEmotion.toLowerCase()}`
-            : "Evidence-based techniques to help you navigate different emotional states"
+          {currentLevel 
+            ? `Based on your assessment, your stress level appears ${currentLevel.toLowerCase()}. Here are some tailored techniques.`
+            : "Explore evidence-based techniques to help you manage stress and anxiety."
           }
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          {emotionKeys.map((emotion, index) => {
-            const data = solutions[emotion as keyof typeof solutions];
+          {levelKeys.map((level, index) => {
+            const data = (solutions as any)[level];
             const Icon = data.icon;
-            const isPersonalized = emotion === currentEmotion;
+            const isPersonalized = level === currentLevel;
             
             return (
               <motion.div
-                key={emotion}
+                key={level}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`bg-white/10 backdrop-blur-lg rounded-3xl p-6 sm:p-8 border transition-all ${
                   isPersonalized 
-                    ? 'border-white/30 bg-white/15 shadow-lg' 
+                    ? 'border-[#10b981] bg-white/15 shadow-lg shadow-[#10b981]/10' 
                     : 'border-white/20 hover:bg-white/15'
                 }`}
               >
@@ -243,19 +168,23 @@ export function SolutionsView() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="text-white text-2xl">{emotion}</h3>
+                      <h3 className="text-white text-2xl">{level} Stress</h3>
                       {isPersonalized && (
-                        <span className="text-xs px-2 py-1 bg-white/20 text-white rounded-full">
-                          Current Mood
+                        <span className="text-xs px-2 py-1 bg-[#10b981] text-white rounded-full">
+                          Your Level
                         </span>
                       )}
                     </div>
                     <p className="text-white/60">{data.title}</p>
                   </div>
                 </div>
+                
+                <p className="text-white/80 mb-6 italic text-sm">
+                  {data.description}
+                </p>
 
                 <div className="space-y-4">
-                  {data.techniques.map((technique, idx) => (
+                  {data.techniques.map((technique: any, idx: number) => (
                     <motion.div
                       key={idx}
                       whileHover={{ scale: 1.02 }}

@@ -1,29 +1,24 @@
 const mongoose = require('mongoose');
 
 const AssessmentSchema = new mongoose.Schema({
-  userId: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  answers: {
-    type: Object,
-    required: true
-  },
-  stressScore: {
+  score: {
     type: Number,
     required: true
   },
-  emotion: {
-    type: String,
-    enum: ['Anxious', 'Tired', 'Angry', 'Calm', 'Happy'],
+  level: {
+    type: String, // 'Low', 'Moderate', 'High'
     required: true
   },
-  aiAnalysis: {
-    type: String, // JSON string or text from AI
-    default: ''
+  answers: {
+    type: [Number], // Array of scores per question
+    required: true
   },
-  timestamp: {
+  date: {
     type: Date,
     default: Date.now
   }

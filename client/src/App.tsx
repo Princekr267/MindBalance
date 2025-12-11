@@ -7,8 +7,9 @@ import { ProgressView } from "./components/ProgressView";
 import { SolutionsView } from "./components/SolutionsView";
 import { HistoryView } from "./components/HistoryView";
 import { SignUpModal } from "./components/SignUpModal";
+
 import { Footer } from "./components/Footer";
-import backgroundInk from "./assets/bcade4ed6aaaac33659059582196cc1b14abc8bd.png";
+import backgroundInk from "./assets/background-ink.png";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
@@ -19,14 +20,21 @@ if (token) {
   axios.defaults.headers.common['x-auth-token'] = token;
 }
 
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+}
+
 export default function App() {
   const [currentView, setCurrentView] = useState<'landing' | 'checkin' | 'progress' | 'solutions' | 'history'>('landing');
   const [menuOpen, setMenuOpen] = useState(false);
   const [showSocialIcons, setShowSocialIcons] = useState(true);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
+
   const [authModalMode, setAuthModalMode] = useState<'signup' | 'login'>('signup');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Check for existing authentication on mount
@@ -36,10 +44,11 @@ export default function App() {
       if (token) {
         axios.defaults.headers.common['x-auth-token'] = token;
         try {
-          // For now, assume valid token means authenticated
+          const res = await axios.get('/api/auth');
           setIsAuthenticated(true);
-          setUser({ token });
+          setUser(res.data);
         } catch (error) {
+          console.error("Token invalid:", error);
           localStorage.removeItem('token');
           delete axios.defaults.headers.common['x-auth-token'];
         }
@@ -49,6 +58,9 @@ export default function App() {
 
     checkAuth();
   }, []);
+
+  // Listen for password reset modal trigger
+
 
   const handleGetStarted = () => {
     if (currentView === 'landing') {
@@ -76,10 +88,30 @@ export default function App() {
     }
   };
 
-  const handleAuthComplete = () => {
-    setIsAuthenticated(true);
-    setShowSignUpModal(false);
-    setCurrentView('checkin');
+  const handleAuthComplete = async () => {
+    try {
+      // Reload user data to ensure we have the name
+      const res = await axios.get('/api/auth');
+      setIsAuthenticated(true);
+      setUser(res.data);
+      setShowSignUpModal(false);
+      setCurrentView('checkin');
+    } catch (error) {
+      console.error("Failed to load user after auth:", error);
+      // Fallback if backend fetch fails
+      setIsAuthenticated(true);
+      setShowSignUpModal(false);
+      setCurrentView('checkin');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    delete axios.defaults.headers.common['x-auth-token'];
+    setIsAuthenticated(false);
+    setUser(null);
+    setCurrentView('landing');
+    setMenuOpen(false); // Close mobile menu if open
   };
 
   useEffect(() => {
@@ -183,15 +215,33 @@ export default function App() {
           >
             Get Started
           </button>
-          <button 
-            onClick={() => {
-              setAuthModalMode('login');
-              setShowSignUpModal(true);
-            }}
-            className="hidden sm:block px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 bg-white/20 text-white rounded-full border border-white/40 hover:bg-white/30 transition-all text-sm sm:text-base"
-          >
-            Login
-          </button>
+          
+          {isAuthenticated ? (
+            <div className="flex items-center gap-4">
+              {user?.name && (
+                <span className="hidden sm:block text-white/90 text-sm">
+                  Welcome, <span className="font-semibold">{user.name}</span>
+                </span>
+              )}
+              <button 
+                onClick={handleLogout}
+                className="hidden sm:block px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 bg-red-500/20 text-white rounded-full border border-white/40 hover:bg-red-500/30 transition-all text-sm sm:text-base"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button 
+              onClick={() => {
+                setAuthModalMode('login');
+                setShowSignUpModal(true);
+              }}
+              className="hidden sm:block px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 bg-white/20 text-white rounded-full border border-white/40 hover:bg-white/30 transition-all text-sm sm:text-base"
+            >
+              Login
+            </button>
+          )}
+
           <button 
             onClick={() => setMenuOpen(!menuOpen)}
             className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-full transition-all lg:hidden"
@@ -233,6 +283,25 @@ export default function App() {
             >
               History
             </button>
+            {isAuthenticated ? (
+              <button 
+                onClick={handleLogout}
+                className="text-red-300 hover:text-red-200 transition-colors text-left pt-2 border-t border-white/10"
+              >
+                Logout
+              </button>
+            ) : (
+              <button 
+                onClick={() => {
+                  setAuthModalMode('login');
+                  setShowSignUpModal(true);
+                  setMenuOpen(false);
+                }}
+                className="text-white hover:text-white/70 transition-colors text-left pt-2 border-t border-white/10"
+              >
+                Login
+              </button>
+            )}
           </div>
         </motion.div>
       )}
@@ -277,6 +346,8 @@ export default function App() {
           onSignUpComplete={handleAuthComplete} 
         />
       )}
+
+
 
       {/* Footer */}
       <Footer />

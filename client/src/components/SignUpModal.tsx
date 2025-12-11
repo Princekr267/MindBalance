@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { X, Mail, Lock, User, Github } from "lucide-react";
+import { X, Mail, Lock, User, Github, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import axios from 'axios';
 
@@ -16,6 +16,7 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
   const [mode, setMode] = useState<'signup' | 'login'>(initialMode);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +38,19 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
       onSignUpComplete();
     } catch (error: any) {
       console.error("Auth error:", error);
-      setError(error.response?.data?.msg || `${mode === 'signup' ? 'Sign up' : 'Login'} failed`);
+      
+      let errorMessage = "Authentication failed";
+      
+      // Handle array of errors (from express-validator)
+      if (error.response?.data?.errors && Array.isArray(error.response.data.errors)) {
+        errorMessage = error.response.data.errors.map((err: any) => err.msg).join(", ");
+      } 
+      // Handle single message error (manual returns)
+      else if (error.response?.data?.msg) {
+        errorMessage = error.response.data.msg;
+      }
+      
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -152,14 +165,26 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={mode === 'signup' ? 'Create a password' : 'Enter your password'}
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-12 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-all"
+                className="w-full bg-white/10 border border-white/20 rounded-xl px-12 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-all pr-12"
                 required
               />
+               <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/80 transition-colors focus:outline-none"
+              >
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
+              </button>
             </div>
+
           </div>
 
           {/* Submit Button */}

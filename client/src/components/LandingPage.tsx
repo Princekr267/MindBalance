@@ -117,7 +117,7 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/20 hover:bg-white/15 transition-all"
+                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/20 transition-all"
               >
                 <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-white" />

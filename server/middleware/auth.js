@@ -12,7 +12,7 @@ module.exports = function(req, res, next) {
   // Verify token
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
-    req.user = decoded.id;
+    req.user = decoded;
     next();
   } catch (err) {
     res.status(401).json({ msg: 'Token is not valid' });

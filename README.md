@@ -1,86 +1,89 @@
-# MindBalance
+# MindBalance - Mental Wellness Tracker
 
-A mental health and meditation application built with React (frontend) and Node.js (backend).
+MindBalance is a comprehensive mental health application designed to help users track their stress levels, practice meditation, and monitor their mental wellness journey.
 
-## Features
+## 🚀 Tech Stack
 
-- User authentication and signup
-- Stress check-in questionnaires
-- Meditation lists and sessions
-- Progress tracking and history
-- Responsive UI with animations
+### Frontend
 
-## Getting Started
+- **Framework**: React (Vite)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **UI Components**: Radix UI (via shadcn/ui patterns)
 
-### Prerequisites
+### Backend
 
-- Node.js (v18 or higher)
-- npm or yarn
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB (Mongoose ODM)
+- **Authentication**: JWT (JSON Web Tokens) & Bcrypt
 
-   ## Running the code Front End
+## 🛠️ Prerequisites
 
-  Run `npm i` to install the dependencies.
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- [MongoDB](https://www.mongodb.com/try/download/community) (Local instance or Atlas URI)
 
-  Run `npm run dev` to start the development server.
+## 📦 Installation
 
-### Installation
+1.  **Clone the repository**
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/Princekr267/MindBalance.git
-   cd MindBalance
-   ```
+    ```bash
+    git clone <repository-url>
+    cd MindBalance
+    ```
 
-2. Install frontend dependencies:
-   ```
-   cd client
-   npm install
-   ```
+2.  **Install Client Dependencies**
 
-3. (Optional) Install backend dependencies if needed:
-   ```
-   cd ../server
-   npm install  # if package.json exists
-   ```
+    ```bash
+    cd client
+    npm install
+    ```
 
-### Running the Application
+3.  **Install Server Dependencies**
 
-1. Start the frontend:
-   ```
-   cd client
-   npm run dev
-   ```
-   The frontend will be available at http://localhost:5173
+    ```bash
+    cd ../server
+    npm install
+    ```
 
-2. Start the backend:
-   ```
-   cd server
-   node server.js
-   ```
-   The backend will run on the configured port (check server.js).
+4.  **Environment Setup**
+    Create a `.env` file in the `server` directory:
+    ```env
+    PORT=5000
+    MONGODB_URI=mongodb://localhost:27017/mental_stress_tracker
+    JWT_SECRET=your_secure_jwt_secret
+    ```
 
-### Building for Production
+## 🏃‍♂️ Running the Application
 
-To build the frontend for production:
+### Start the Backend
+
+Open a terminal and run:
+
+```bash
+cd server
+node server.js
 ```
+
+_Server will start on http://localhost:5000_
+
+### Start the Frontend
+
+Open a **new** terminal and run:
+
+```bash
 cd client
-npm run build
+npm run dev
 ```
 
-## Project Structure
+_Frontend will start on http://localhost:3000_
 
-- `client/`: React frontend with Vite
-- `server/`: Node.js backend with Express
-- `asset/`: Static assets
-- `Front End/`: Alternative frontend setup
+## ✨ Features
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
-
-This project is private.
+- **Stress Assessment**: Take quick questionnaires to gauge your current stress levels.
+- **Meditation Library**: Access a curated list of meditation sessions.
+- **Progress Tracking**: Visualize your stress history over time.
+- **Secure Authentication**: Sign up and login securely to save your data.
+- **Dynamic UI**: Beautiful, animated interface with a relaxing theme.

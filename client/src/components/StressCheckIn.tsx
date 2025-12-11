@@ -1,58 +1,78 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Smile, Frown, Zap, Battery, CloudRain, Sparkles } from "lucide-react";
 import axios from 'axios';
 
 interface StressCheckInProps {
   onComplete: () => void;
 }
 
-interface CheckInData {
-  id: string;
-  timestamp: number;
-  date: string;
-  stressLevel: number;
-  emotion: string;
-}
+// 7 questions adapted from GAD-7 (General Anxiety Disorder-7)
+// Each answer 0-3: Not at all, Several days, More than half the days, Nearly every day
+const questions = [
+  "Feeling nervous, anxious, or on edge?",
+  "Not being able to stop or control worrying?",
+  "Worrying too much about different things?",
+  "Trouble relaxing?",
+  "Being so restless that it is hard to sit still?",
+  "Becoming easily annoyed or irritable?",
+  "Feeling afraid as if something awful might happen?"
+];
 
-const emotions = [
-  { name: "Anxious", icon: CloudRain, color: "#8b5cf6" },
-  { name: "Tired", icon: Battery, color: "#6366f1" },
-  { name: "Angry", icon: Zap, color: "#ef4444" },
-  { name: "Calm", icon: Sparkles, color: "#10b981" },
-  { name: "Happy", icon: Smile, color: "#f59e0b" },
-  { name: "Overwhelmed", icon: Frown, color: "#ec4899" },
+const options = [
+  { label: "Not at all", value: 0 },
+  { label: "Several days", value: 1 },
+  { label: "More than half the days", value: 2 },
+  { label: "Can't Stop", value: 3 }
 ];
 
 export function StressCheckIn({ onComplete }: StressCheckInProps) {
-  const [stressLevel, setStressLevel] = useState(5);
-  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<number[]>(new Array(questions.length).fill(-1));
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async () => {
-    if (!selectedEmotion) {
-      alert("Please select an emotion");
-      return;
-    }
+  const handleAnswer = (value: number) => {
+    const newAnswers = [...answers];
+    newAnswers[currentQuestion] = value;
+    setAnswers(newAnswers);
 
+    if (currentQuestion < questions.length - 1) {
+      // Small delay for UX
+      setTimeout(() => setCurrentQuestion(currentQuestion + 1), 250);
+    }
+  };
+
+  const calculateResults = () => {
+    const totalScore = answers.reduce((a, b) => a + b, 0);
+    // GAD-7 Scoring: 0-4 Minimal, 5-9 Mild, 10-14 Moderate, 15-21 Severe
+    // We simplify to: Low (0-9), Moderate (10-14), High (15+)
+    let level = "Low";
+    if (totalScore >= 10) level = "Moderate";
+    if (totalScore >= 15) level = "High";
+    return { totalScore, level };
+  };
+
+  const handleSubmit = async () => {
     setIsSubmitting(true);
+    const { totalScore, level } = calculateResults();
 
     try {
-      const response = await axios.post('/api/assessment', {
-        stressScore: stressLevel,
-        emotion: selectedEmotion,
-        answers: { stress: stressLevel, mood: selectedEmotion }
+      await axios.post('/api/assessments', {
+        score: totalScore,
+        level: level,
+        answers: answers
       });
-
-      console.log('Check-in submitted successfully:', response.data);
+      console.log('Assessment saved:', { totalScore, level });
       onComplete();
     } catch (error) {
-      console.error('Failed to submit check-in:', error);
-      alert('Failed to submit check-in. Please try again.');
+      console.error('Failed to submit assessment:', error);
+      alert('Failed to save results. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const isLastQuestion = currentQuestion === questions.length - 1;
+  const allAnswered = answers.every(a => a !== -1);
 
   return (
     <div className="min-h-screen px-4 sm:px-8 lg:px-12 py-12 sm:py-16 flex items-center justify-center">
@@ -62,96 +82,74 @@ export function StressCheckIn({ onComplete }: StressCheckInProps) {
         transition={{ duration: 0.6 }}
         className="w-full max-w-3xl bg-white/10 backdrop-blur-lg rounded-3xl p-6 sm:p-10 lg:p-12 border border-white/20"
       >
-        <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-3 text-center">
-          Daily Check-In
+        <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl mb-2 text-center">
+          Wellness Assessment
         </h2>
-        <p className="text-white/70 text-center mb-10 sm:mb-12">
-          How are you feeling today? Take a moment to reflect.
+        <p className="text-white/60 text-center mb-8 text-sm">
+          Over the last 2 weeks, how often have you been bothered by the following problems?
         </p>
 
-        {/* Stress Level Slider */}
-        <div className="mb-12 sm:mb-16">
-          <label className="text-white text-xl sm:text-2xl mb-6 block">
-            Stress Level: <span className="text-white/60">{stressLevel}/10</span>
-          </label>
-          
-          <div className="relative">
-            <input
-              type="range"
-              min="1"
-              max="10"
-              value={stressLevel}
-              onChange={(e) => setStressLevel(parseInt(e.target.value))}
-              className="w-full h-3 rounded-full appearance-none cursor-pointer"
-              style={{
-                background: `linear-gradient(to right, #10b981 0%, #f59e0b ${(stressLevel - 1) * 11.11}%, #ef4444 100%)`,
-              }}
-            />
-            
-            <div className="flex justify-between mt-4 text-white/60 text-sm">
-              <span>Low</span>
-              <span>Moderate</span>
-              <span>High</span>
-            </div>
-          </div>
+        {/* Progress Bar */}
+        <div className="w-full bg-white/10 h-2 rounded-full mb-8">
+          <motion.div 
+            className="bg-[#10b981] h-full rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+          />
         </div>
 
-        {/* Emotion Selection */}
-        <div className="mb-10 sm:mb-12">
-          <label className="text-white text-xl sm:text-2xl mb-6 block">
-            What emotion best describes your state?
-          </label>
-          
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
-            {emotions.map((emotion) => {
-              const Icon = emotion.icon;
-              const isSelected = selectedEmotion === emotion.name;
-              
-              return (
-                <motion.button
-                  key={emotion.name}
-                  onClick={() => setSelectedEmotion(emotion.name)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`p-4 sm:p-6 rounded-2xl border-2 transition-all ${
-                    isSelected
-                      ? 'bg-white/20 border-white/60'
-                      : 'bg-white/5 border-white/20 hover:bg-white/10'
-                  }`}
-                  style={{
-                    borderColor: isSelected ? emotion.color : undefined,
-                  }}
-                >
-                  <Icon 
-                    className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2" 
-                    style={{ color: emotion.color }}
-                  />
-                  <div className="text-white text-sm sm:text-base">{emotion.name}</div>
-                </motion.button>
-              );
-            })}
-          </div>
+        {/* Question */}
+        <div className="mb-8 min-h-[100px]">
+           <h3 className="text-white text-xl sm:text-2xl font-medium text-center">
+             {questions[currentQuestion]}
+           </h3>
         </div>
 
-        {/* Submit Button */}
-        <motion.button
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className={`w-full py-4 rounded-full text-white text-lg transition-all ${
-            isSubmitting
-              ? 'bg-white/20 cursor-not-allowed'
-              : 'bg-white/30 hover:bg-white/40 border border-white/40'
-          }`}
-        >
-          {isSubmitting ? 'Saving Check-In...' : 'Complete Check-In'}
-        </motion.button>
+        {/* Options */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          {options.map((option) => (
+            <motion.button
+              key={option.value}
+              onClick={() => handleAnswer(option.value)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`p-4 rounded-xl border text-left transition-all ${
+                answers[currentQuestion] === option.value
+                  ? 'bg-white/30 border-white/60 text-white shadow-lg'
+                  : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10'
+              }`}
+            >
+              {option.label}
+            </motion.button>
+          ))}
+        </div>
 
-        <p className="text-white/50 text-sm text-center mt-6">
-          Your data is stored locally on your device and never shared.
-        </p>
+        {/* Navigation */}
+        <div className="flex justify-between items-center">
+          <button
+            onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
+            disabled={currentQuestion === 0}
+            className="text-white/50 hover:text-white disabled:opacity-30 transition-colors"
+          >
+            Previous
+          </button>
+
+          {isLastQuestion ? (
+             <button
+             onClick={handleSubmit}
+             disabled={!allAnswered || isSubmitting}
+             className="px-8 py-3 bg-[#10b981] text-white rounded-full font-medium hover:bg-[#059669] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+           >
+             {isSubmitting ? 'Saving...' : 'See Results'}
+           </button>
+          ) : (
+            <span className="text-white/40 text-sm">
+              {currentQuestion + 1} of {questions.length}
+            </span>
+          )}
+        </div>
       </motion.div>
     </div>
   );
 }
+
