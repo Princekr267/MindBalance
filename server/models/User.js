@@ -1,39 +1,48 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
-    required: true
+    required: true,
   },
   resetPasswordToken: {
-    type: String
+    type: String,
   },
   resetPasswordExpires: {
-    type: Date
+    type: Date,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
+  dob: {
+    type: Date,
+  },
+  profession: {
+    type: String,
+  },
+  bio: {
+    type: String,
+  },
 });
 
 // Hash password before saving
-UserSchema.pre('save', async function() {
-  if (!this.isModified('password')) {
+UserSchema.pre("save", async function () {
+  if (!this.isModified("password")) {
     return;
   }
   const salt = await bcrypt.genSalt(10);
@@ -41,8 +50,8 @@ UserSchema.pre('save', async function() {
 });
 
 // Match password
-UserSchema.methods.matchPassword = async function(enteredPassword) {
+UserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

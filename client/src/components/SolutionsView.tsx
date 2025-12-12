@@ -170,7 +170,10 @@ export function SolutionsView() {
                     <div className="flex items-center gap-2">
                       <h3 className="text-white text-2xl">{level} Stress</h3>
                       {isPersonalized && (
-                        <span className="text-xs px-2 py-1 bg-[#10b981] text-white rounded-full">
+                        <span 
+                          className="text-xs px-2 py-1 text-white rounded-full"
+                          style={{ backgroundColor: data.color }}
+                        >
                           Your Level
                         </span>
                       )}

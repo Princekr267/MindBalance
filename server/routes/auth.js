@@ -20,6 +20,37 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+// @route   PUT api/auth/profile
+// @desc    Update user profile
+// @access  Private
+router.put('/profile', auth, async (req, res) => {
+  const { name, dob, profession, bio } = req.body;
+
+  // Build user object
+  const profileFields = {};
+  if (name) profileFields.name = name;
+  if (dob) profileFields.dob = dob;
+  if (profession) profileFields.profession = profession;
+  if (bio) profileFields.bio = bio;
+
+  try {
+    let user = await User.findById(req.user.id);
+
+    if (!user) return res.status(404).json({ msg: 'User not found' });
+
+    user = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: profileFields },
+      { new: true }
+    ).select('-password');
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET || 'secret', {

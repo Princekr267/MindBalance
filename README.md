@@ -85,5 +85,16 @@ _Frontend will start on http://localhost:3000_
 - **Stress Assessment**: Take quick questionnaires to gauge your current stress levels.
 - **Meditation Library**: Access a curated list of meditation sessions.
 - **Progress Tracking**: Visualize your stress history over time.
+- **Personalized Tips**: Get daily wellness tips tailored specifically to your profession (e.g., Developers, Students, Teachers).
+- **Wellness Goals**: Set and display your personal motivation goal on your dashboard.
+- **Smart Profile**: Manage your personal details to get a customized experience.
 - **Secure Authentication**: Sign up and login securely to save your data.
-- **Dynamic UI**: Beautiful, animated interface with a relaxing theme.
+- **Dynamic UI**: Beautiful, animated interface with a relaxing theme and glassmorphism elements.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License.

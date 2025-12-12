@@ -94,7 +94,7 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         transition={{ duration: 0.3 }}
-        className="relative w-full max-w-md bg-gradient-to-b from-[#4a7a7d]/90 via-[#3a6569]/90 to-[#254250]/90 backdrop-blur-xl rounded-3xl border border-white/20 p-8 shadow-2xl"
+        className="relative w-full max-w-md mx-4 sm:mx-0 bg-gradient-to-b from-[#4a7a7d]/90 via-[#3a6569]/90 to-[#254250]/90 backdrop-blur-xl rounded-3xl border border-white/20 p-6 sm:p-6 shadow-2xl overflow-y-auto max-h-[85vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
