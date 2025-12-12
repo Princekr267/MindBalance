@@ -30,7 +30,7 @@ MindBalance is a comprehensive mental health application designed to help users 
 1.  **Clone the repository**
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/Princekr267/MindBalance.git
     cd MindBalance
     ```
 
