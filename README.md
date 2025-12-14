@@ -7,7 +7,7 @@ MindBalance is a comprehensive mental health application designed to help users 
 ### Frontend
 
 - **Framework**: React (Vite)
-- **Language**: TypeScript
+- **Language**: JavaScript
 - **Styling**: Tailwind CSS v4
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
@@ -44,16 +44,8 @@ MindBalance is a comprehensive mental health application designed to help users 
 3.  **Install Server Dependencies**
 
     ```bash
-    cd ../server
+    cd ..
     npm install
-    ```
-
-4.  **Environment Setup**
-    Create a `.env` file in the `server` directory:
-    ```env
-    PORT=5000
-    MONGODB_URI=mongodb://localhost:27017/mental_stress_tracker
-    JWT_SECRET=your_secure_jwt_secret
     ```
 
 ## 🏃‍♂️ Running the Application
