@@ -30,18 +30,23 @@ MindBalance is a comprehensive mental health application designed to help users 
 1.  **Clone the repository**
 
     ```bash
-    git clone -b features-refactor https://github.com/Princekr267/MindBalance.git
+    git clone -b in-js https://github.com/Princekr267/MindBalance.git
     cd MindBalance
     ```
+2.  **Install Server Dependencies**
 
-2.  **Install Client Dependencies**
+    ```bash
+    npm install
+    ```
+
+3.  **Install Client Dependencies**
 
     ```bash
     cd client
     npm install
     ```
 
-3. (Optional) Install backend dependencies if needed:
+4. (Optional) Install backend dependencies if needed:
 
     ```
     cd ../server
