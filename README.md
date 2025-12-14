@@ -7,7 +7,7 @@ MindBalance is a comprehensive mental health application designed to help users 
 ### Frontend
 
 - **Framework**: React (Vite)
-- **Language**: TypeScript
+- **Language**: JavaScript
 - **Styling**: Tailwind CSS v4
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
@@ -45,14 +45,6 @@ MindBalance is a comprehensive mental health application designed to help users 
     cd client
     npm install
     ```
-
-4. (Optional) Install backend dependencies if needed:
-
-    ```
-    cd ../server
-    npm install  # if package.json exists
-    ```
-
 
 ## 🏃‍♂️ Running the Application
 
