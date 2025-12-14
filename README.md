@@ -46,8 +46,6 @@ MindBalance is a comprehensive mental health application designed to help users 
     npm install
     ```
 
-
-
 ## 🏃‍♂️ Running the Application
 
 ### Start the Backend
