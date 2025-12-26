@@ -41,15 +41,22 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
     <>
       {/* Hero Section */}
       <div
-        className="px-4 sm:px-8 lg:px-12 flex items-center"
+        className="px-4 sm:px-8 lg:px-12 flex items-center relative"
         style={{ minHeight: "calc(100vh - 120px)" }}
       >
-        <div className="max-w-2xl w-full">
+        <div className="max-w-3xl w-full relative z-10 mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-64 bg-[#9CAF88]/20 rounded-full blur-3xl -z-10"
+          />
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-white/90 text-base sm:text-lg mb-3 sm:mb-4 select-none"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-[#9CAF88] text-sm sm:text-base mb-6 font-medium tracking-[0.3em] uppercase"
           >
             Welcome to
           </motion.p>
@@ -57,44 +64,54 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-white mb-6 sm:mb-8 lg:mb-10 leading-none"
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-[#1c1917] mb-8 leading-[1.1] font-serif"
             style={{
-              fontSize: "clamp(2.5rem, 10vw, 5.5rem)",
-              fontWeight: 700,
+              fontSize: "clamp(3.5rem, 10vw, 6rem)",
+              fontWeight: 500,
             }}
           >
             MindBalance
+            <span className="block text-xl sm:text-3xl mt-4 font-sans font-light text-stone-500 tracking-wide">
+              Find your center.
+            </span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-white/80 text-base sm:text-lg mb-8 sm:mb-10 max-w-xl"
+            className="text-stone-600 text-lg sm:text-xl mb-12 max-w-2xl mx-auto leading-relaxed"
           >
-            Your personal mental wellness companion. Track your stress, understand your emotions, and discover personalized coping strategies all in one place.
+            Your personal mental wellness companion. Track your stress, understand your emotions, and discover personalized coping strategies.
           </motion.p>
 
-          <motion.button
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: "rgba(255, 255, 255, 0.08)",
-            }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onStartJourney || onGetStarted}
-            className="px-6 sm:px-8 lg:px-9 py-2.5 sm:py-3 bg-transparent text-white rounded-full border border-white/60 hover:border-white transition-all text-sm sm:text-base w-full sm:w-auto"
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            Start Your Journey
-          </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={onStartJourney || onGetStarted}
+              className="px-8 py-4 bg-white/30 backdrop-blur-md border border-white/40 text-[#1c1917] font-medium rounded-full hover:bg-white/50 transition-all text-lg shadow-lg hover:shadow-xl w-full sm:w-auto"
+            >
+              Start Your Journey
+            </motion.button>
+            <button
+              onClick={() => document.getElementById('how-mindbalance-helps')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-[#1c1917] font-medium rounded-full hover:bg-white/20 transition-all text-lg w-full sm:w-auto"
+            >
+              Learn More
+            </button>
+          </motion.div>
         </div>
       </div>
 
       {/* Features Section */}
-      <div id="how-mindbalance-helps" className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24">
+      <div id="how-mindbalance-helps" className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -102,11 +119,11 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
           transition={{ duration: 0.8 }}
           className="max-w-6xl mx-auto"
         >
-          <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-4 text-center">
+          <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-6 text-center font-serif">
             How MindBalance Helps
           </h2>
-          <p className="text-white/70 text-center mb-12 sm:mb-16 max-w-2xl mx-auto">
-            Simple tools designed to help you understand and manage your mental wellness
+          <p className="text-stone-600 text-center mb-16 max-w-2xl mx-auto text-lg leading-relaxed">
+            Simple tools designed to help you understand and manage your mental wellness, naturally.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
@@ -117,15 +134,15 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-white/20 hover:bg-white/15 transition-all"
+                className="bg-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/60 hover:bg-white/90 transition-all hover:shadow-2xl hover:shadow-[#9CAF88]/10 group hover:-translate-y-1 duration-300"
               >
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 bg-[#9CAF88]/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className="w-7 h-7 text-[#7A8C6B]" />
                 </div>
-                <h3 className="text-white text-xl sm:text-2xl mb-3">
+                <h3 className="text-[#1c1917] text-xl sm:text-2xl mb-3 font-serif">
                   {feature.title}
                 </h3>
-                <p className="text-white/70">
+                <p className="text-stone-600 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -135,7 +152,7 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
       </div>
 
       {/* How It Works Section */}
-      <div className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24">
+      <div className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -143,11 +160,11 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-12 sm:mb-16 text-center">
-            Your Wellness Journey in 3 Steps
+          <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-16 text-center font-serif">
+            Your Wellness Journey
           </h2>
 
-          <div className="space-y-8 sm:space-y-12">
+          <div className="space-y-16">
             {[
               {
                 step: "01",
@@ -171,16 +188,16 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="flex gap-6 sm:gap-8 items-start"
+                className="flex gap-8 sm:gap-12 items-start group"
               >
-                <div className="text-white/30 text-5xl sm:text-6xl flex-shrink-0">
+                <div className="text-[#9CAF88]/40 text-6xl sm:text-7xl flex-shrink-0 font-serif italic group-hover:text-[#9CAF88]/60 transition-colors duration-500">
                   {item.step}
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-white text-2xl sm:text-3xl mb-3">
+                <div className="flex-1 pt-4">
+                  <h3 className="text-[#1c1917] text-2xl sm:text-3xl mb-4 font-serif">
                     {item.title}
                   </h3>
-                  <p className="text-white/70 text-base sm:text-lg">
+                  <p className="text-stone-600 text-lg leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -193,11 +210,11 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-12 sm:mt-16 text-center"
+            className="mt-20 text-center"
           >
             <button
               onClick={onGetStarted}
-              className="px-8 sm:px-10 py-3 sm:py-4 bg-white/20 text-white rounded-full border border-white/40 hover:bg-white/30 transition-all text-base sm:text-lg backdrop-blur-sm"
+              className="px-10 py-4 bg-[#9CAF88] text-[#1c1917] font-medium rounded-full hover:bg-[#8B9D7A] transition-all text-lg shadow-lg shadow-[#9CAF88]/20"
             >
               Begin Your First Check-In
             </button>
@@ -206,26 +223,26 @@ export function LandingPage({ onGetStarted, onStartJourney }: LandingPageProps) 
       </div>
 
       {/* Stats Section */}
-      <div className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24 mb-16">
+      <div className="px-4 sm:px-8 lg:px-12 py-16 sm:py-24 mb-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-5xl mx-auto bg-white/10 backdrop-blur-lg rounded-3xl p-8 sm:p-12 border border-white/20"
+          className="max-w-5xl mx-auto bg-white/80 backdrop-blur-2xl rounded-[2rem] p-12 border border-white/60 shadow-2xl shadow-[#9CAF88]/5"
         >
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12">
-            <div className="text-center">
-              <div className="text-white text-4xl sm:text-5xl mb-2">1-10</div>
-              <div className="text-white/70">Stress Scale</div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 divide-y sm:divide-y-0 sm:divide-x divide-stone-200/50">
+            <div className="text-center pt-8 sm:pt-0">
+              <div className="text-[#1c1917] text-5xl sm:text-6xl mb-3 font-serif">1-10</div>
+              <div className="text-[#9CAF88] font-medium tracking-wider uppercase text-sm">Stress Scale</div>
             </div>
-            <div className="text-center">
-              <div className="text-white text-4xl sm:text-5xl mb-2">6</div>
-              <div className="text-white/70">Emotion Tags</div>
+            <div className="text-center pt-8 sm:pt-0">
+              <div className="text-[#1c1917] text-5xl sm:text-6xl mb-3 font-serif">6</div>
+              <div className="text-[#9CAF88] font-medium tracking-wider uppercase text-sm">Emotion Tags</div>
             </div>
-            <div className="text-center">
-              <div className="text-white text-4xl sm:text-5xl mb-2">7-Day</div>
-              <div className="text-white/70">Trend Analysis</div>
+            <div className="text-center pt-8 sm:pt-0">
+              <div className="text-[#1c1917] text-5xl sm:text-6xl mb-3 font-serif">7-Day</div>
+              <div className="text-[#9CAF88] font-medium tracking-wider uppercase text-sm">Trend Analysis</div>
             </div>
           </div>
         </motion.div>
