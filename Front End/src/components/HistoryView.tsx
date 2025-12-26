@@ -83,20 +83,20 @@ export function HistoryView() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   };
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString('en-US', { 
-      hour: 'numeric', 
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
       minute: '2-digit',
-      hour12: true 
+      hour12: true
     });
   };
 
@@ -116,10 +116,10 @@ export function HistoryView() {
       >
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10 sm:mb-12">
           <div>
-            <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-2">
+            <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-2 font-serif">
               Check-In History
             </h2>
-            <p className="text-white/70">
+            <p className="text-stone-600">
               {checkIns.length} total check-in{checkIns.length !== 1 ? 's' : ''}
             </p>
           </div>
@@ -130,7 +130,7 @@ export function HistoryView() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={exportData}
-                className="px-4 py-2 bg-white/10 text-white rounded-full border border-white/20 hover:bg-white/20 transition-all flex items-center gap-2 text-sm"
+                className="px-4 py-2 bg-white/60 text-stone-800 rounded-full border border-stone-200 hover:bg-white/80 transition-all flex items-center gap-2 text-sm shadow-sm"
               >
                 <Download className="w-4 h-4" />
                 Export
@@ -139,7 +139,7 @@ export function HistoryView() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={clearAllData}
-                className="px-4 py-2 bg-red-500/20 text-red-300 rounded-full border border-red-500/30 hover:bg-red-500/30 transition-all flex items-center gap-2 text-sm"
+                className="px-4 py-2 bg-red-100 text-red-600 rounded-full border border-red-200 hover:bg-red-200 transition-all flex items-center gap-2 text-sm"
               >
                 <Trash2 className="w-4 h-4" />
                 Clear All
@@ -149,10 +149,10 @@ export function HistoryView() {
         </div>
 
         {checkIns.length === 0 ? (
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 text-center">
-            <Calendar className="w-16 h-16 text-white/40 mx-auto mb-4" />
-            <h3 className="text-white text-2xl mb-2">No Check-Ins Yet</h3>
-            <p className="text-white/60">
+          <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-12 border border-white/60 text-center shadow-lg">
+            <Calendar className="w-16 h-16 text-stone-300 mx-auto mb-4" />
+            <h3 className="text-[#1c1917] text-2xl mb-2 font-serif">No Check-Ins Yet</h3>
+            <p className="text-stone-600">
               Your check-in history will appear here once you complete your first entry
             </p>
           </div>
@@ -165,11 +165,11 @@ export function HistoryView() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                <h3 className="text-white text-xl mb-4 flex items-center gap-3">
-                  <Calendar className="w-5 h-5 text-white/60" />
+                <h3 className="text-stone-800 text-xl mb-4 flex items-center gap-3 font-semibold">
+                  <Calendar className="w-5 h-5 text-stone-400" />
                   {formatDate(date)}
                 </h3>
-                
+
                 <div className="space-y-3">
                   {dateCheckIns.map((checkIn) => (
                     <motion.div
@@ -177,22 +177,22 @@ export function HistoryView() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       whileHover={{ scale: 1.01 }}
-                      className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all"
+                      className="bg-white/80 backdrop-blur-2xl rounded-2xl p-4 sm:p-6 border border-white/60 hover:bg-white/90 transition-all shadow-sm hover:shadow-md"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4 flex-1">
-                          <div className="text-white/60 text-sm min-w-[60px]">
+                          <div className="text-stone-500 text-sm min-w-[60px] font-medium">
                             {formatTime(checkIn.timestamp)}
                           </div>
-                          
+
                           <div className="flex items-center gap-4 flex-1">
                             <div className="flex items-center gap-2">
-                              <div 
-                                className="px-3 py-1 rounded-full text-sm"
+                              <div
+                                className="px-3 py-1 rounded-full text-sm font-medium"
                                 style={{
-                                  backgroundColor: `${emotionColors[checkIn.emotion]}20`,
+                                  backgroundColor: `${emotionColors[checkIn.emotion]}15`,
                                   color: emotionColors[checkIn.emotion],
-                                  border: `1px solid ${emotionColors[checkIn.emotion]}40`
+                                  border: `1px solid ${emotionColors[checkIn.emotion]}30`
                                 }}
                               >
                                 {checkIn.emotion}
@@ -200,13 +200,13 @@ export function HistoryView() {
                             </div>
 
                             <div className="flex items-center gap-2">
-                              <span className="text-white/60 text-sm">Stress:</span>
-                              <div 
-                                className="px-3 py-1 rounded-full text-sm"
+                              <span className="text-stone-500 text-sm">Stress:</span>
+                              <div
+                                className="px-3 py-1 rounded-full text-sm font-medium"
                                 style={{
-                                  backgroundColor: `${getStressColor(checkIn.stressLevel)}20`,
+                                  backgroundColor: `${getStressColor(checkIn.stressLevel)}15`,
                                   color: getStressColor(checkIn.stressLevel),
-                                  border: `1px solid ${getStressColor(checkIn.stressLevel)}40`
+                                  border: `1px solid ${getStressColor(checkIn.stressLevel)}30`
                                 }}
                               >
                                 {checkIn.stressLevel}/10
@@ -217,7 +217,7 @@ export function HistoryView() {
 
                         <button
                           onClick={() => deleteCheckIn(checkIn.id)}
-                          className="text-red-400 hover:text-red-300 transition-colors p-2 hover:bg-red-500/10 rounded-lg self-start sm:self-center"
+                          className="text-red-400 hover:text-red-600 transition-colors p-2 hover:bg-red-50 rounded-lg self-start sm:self-center"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>

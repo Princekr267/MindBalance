@@ -145,35 +145,35 @@ export function SolutionsView() {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-3">
+        <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-3 font-serif">
           Wellness Solutions
         </h2>
-        <p className="text-white/70 mb-10 sm:mb-12">
+        <p className="text-stone-600 mb-10 sm:mb-12 text-lg">
           Evidence-based techniques to help you navigate different emotional states
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {Object.entries(solutions).map(([emotion, data], index) => {
             const Icon = data.icon;
-            
+
             return (
               <motion.div
                 key={emotion}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 sm:p-8 border border-white/20 hover:bg-white/15 transition-all"
+                className="bg-white/80 backdrop-blur-2xl rounded-[2rem] p-8 border border-white/60 shadow-xl hover:bg-white/90 hover:shadow-2xl hover:shadow-[#9CAF88]/10 transition-all hover:-translate-y-1 duration-300"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div 
-                    className="w-14 h-14 rounded-full flex items-center justify-center"
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm"
                     style={{ backgroundColor: `${data.color}20` }}
                   >
                     <Icon className="w-7 h-7" style={{ color: data.color }} />
                   </div>
                   <div>
-                    <h3 className="text-white text-2xl">{emotion}</h3>
-                    <p className="text-white/60">{data.title}</p>
+                    <h3 className="text-[#1c1917] text-2xl font-serif">{emotion}</h3>
+                    <p className="text-stone-600 font-medium">{data.title}</p>
                   </div>
                 </div>
 
@@ -181,22 +181,23 @@ export function SolutionsView() {
                   {data.techniques.map((technique, idx) => (
                     <motion.div
                       key={idx}
-                      whileHover={{ scale: 1.02 }}
-                      className="bg-white/5 rounded-xl p-4 border border-white/10 hover:border-white/20 transition-all cursor-pointer"
+                      whileHover={{ scale: 1.01 }}
+                      className="bg-white/50 rounded-xl p-4 border border-white/60 hover:border-[#9CAF88]/50 transition-all cursor-pointer shadow-sm"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="text-white">{technique.name}</h4>
-                        <span 
-                          className="text-xs px-2 py-1 rounded-full"
-                          style={{ 
-                            backgroundColor: `${data.color}20`,
-                            color: data.color 
+                        <h4 className="text-[#1c1917] font-semibold">{technique.name}</h4>
+                        <span
+                          className="text-xs px-2 py-1 rounded-full font-medium"
+                          style={{
+                            backgroundColor: `${data.color}15`,
+                            color: data.color,
+                            border: `1px solid ${data.color}30`
                           }}
                         >
                           {technique.duration}
                         </span>
                       </div>
-                      <p className="text-white/70 text-sm">{technique.description}</p>
+                      <p className="text-stone-600 text-sm">{technique.description}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -210,20 +211,20 @@ export function SolutionsView() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20"
+          className="mt-12 bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/60 shadow-lg"
         >
-          <h3 className="text-white text-2xl mb-4">Remember</h3>
-          <ul className="space-y-3 text-white/70">
+          <h3 className="text-[#1c1917] text-2xl mb-4 font-serif">Remember</h3>
+          <ul className="space-y-3 text-stone-600">
             <li className="flex items-start gap-3">
-              <span className="text-white/40 mt-1">•</span>
+              <span className="text-[#9CAF88] mt-1 font-bold">•</span>
               <span>These techniques work best with regular practice, not just during crisis moments</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-white/40 mt-1">•</span>
+              <span className="text-[#9CAF88] mt-1 font-bold">•</span>
               <span>What works varies by person—experiment to find your favorites</span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-white/40 mt-1">•</span>
+              <span className="text-[#9CAF88] mt-1 font-bold">•</span>
               <span>If you're experiencing persistent distress, consider reaching out to a mental health professional</span>
             </li>
           </ul>

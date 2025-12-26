@@ -22,11 +22,11 @@ export function ProgressView() {
     const data = localStorage.getItem('mindBalanceCheckIns');
     if (data) {
       const allCheckIns: CheckInData[] = JSON.parse(data);
-      
+
       // Get last 7 days
       const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
       const recentCheckIns = allCheckIns.filter(c => c.timestamp >= sevenDaysAgo);
-      
+
       setCheckIns(recentCheckIns);
 
       // Prepare chart data (group by date)
@@ -84,18 +84,18 @@ export function ProgressView() {
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-3">
+        <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-3 font-serif">
           Your Progress
         </h2>
-        <p className="text-white/70 mb-10 sm:mb-12">
+        <p className="text-stone-600 mb-10 sm:mb-12 text-lg">
           Track your mental wellness journey over the past 7 days
         </p>
 
         {checkIns.length === 0 ? (
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 text-center">
-            <Calendar className="w-16 h-16 text-white/40 mx-auto mb-4" />
-            <h3 className="text-white text-2xl mb-2">No Check-Ins Yet</h3>
-            <p className="text-white/60">
+          <div className="bg-white/60 backdrop-blur-xl rounded-3xl p-12 border border-white/60 text-center shadow-lg">
+            <Calendar className="w-16 h-16 text-stone-300 mx-auto mb-4" />
+            <h3 className="text-[#1c1917] text-2xl mb-2 font-serif">No Check-Ins Yet</h3>
+            <p className="text-stone-600">
               Complete your first check-in to start tracking your progress
             </p>
           </div>
@@ -107,22 +107,22 @@ export function ProgressView() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20"
+                className="bg-white/80 backdrop-blur-2xl rounded-2xl p-6 border border-white/60 shadow-sm hover:shadow-md transition-all"
               >
-                <div className="text-white/60 mb-2">Total Check-Ins</div>
-                <div className="text-white text-4xl">{checkIns.length}</div>
+                <div className="text-stone-500 mb-2 font-medium">Total Check-Ins</div>
+                <div className="text-[#1c1917] text-4xl font-serif">{checkIns.length}</div>
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20"
+                className="bg-white/60 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-sm"
               >
-                <div className="text-white/60 mb-2">Average Stress</div>
-                <div className="text-white text-4xl flex items-center gap-2">
+                <div className="text-stone-500 mb-2 font-medium">Average Stress</div>
+                <div className="text-[#1c1917] text-4xl flex items-center gap-2 font-serif">
                   {averageStress}
-                  <span className="text-2xl text-white/40">/10</span>
+                  <span className="text-2xl text-stone-400 font-sans">/10</span>
                 </div>
               </motion.div>
 
@@ -130,22 +130,22 @@ export function ProgressView() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20"
+                className="bg-white/60 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-sm"
               >
-                <div className="text-white/60 mb-2">Trend</div>
-                <div className="text-white text-4xl flex items-center gap-2">
+                <div className="text-stone-500 mb-2 font-medium">Trend</div>
+                <div className="text-[#1c1917] text-4xl flex items-center gap-2 font-serif">
                   {trend === 'down' ? (
                     <>
-                      <TrendingDown className="w-10 h-10 text-green-400" />
-                      <span className="text-2xl text-green-400">Better</span>
+                      <TrendingDown className="w-10 h-10 text-emerald-500" />
+                      <span className="text-2xl text-emerald-600 font-sans">Better</span>
                     </>
                   ) : trend === 'up' ? (
                     <>
-                      <TrendingUp className="w-10 h-10 text-orange-400" />
-                      <span className="text-2xl text-orange-400">Rising</span>
+                      <TrendingUp className="w-10 h-10 text-amber-500" />
+                      <span className="text-2xl text-amber-600 font-sans">Rising</span>
                     </>
                   ) : (
-                    <span className="text-2xl text-white/60">N/A</span>
+                    <span className="text-2xl text-stone-400 font-sans">N/A</span>
                   )}
                 </div>
               </motion.div>
@@ -156,38 +156,39 @@ export function ProgressView() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 sm:p-8 border border-white/20 mb-8 sm:mb-12"
+              className="bg-white/80 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 border border-white/60 mb-8 sm:mb-12 shadow-xl"
             >
-              <h3 className="text-white text-2xl mb-6">Stress Level Over Time</h3>
+              <h3 className="text-[#1c1917] text-2xl mb-6 font-serif">Stress Level Over Time</h3>
               <div className="h-64 sm:h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                    <XAxis 
-                      dataKey="date" 
-                      stroke="rgba(255,255,255,0.5)"
-                      tick={{ fill: 'rgba(255,255,255,0.7)' }}
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(28, 25, 23, 0.1)" />
+                    <XAxis
+                      dataKey="date"
+                      stroke="rgba(28, 25, 23, 0.4)"
+                      tick={{ fill: 'rgba(28, 25, 23, 0.6)' }}
                     />
-                    <YAxis 
+                    <YAxis
                       domain={[0, 10]}
-                      stroke="rgba(255,255,255,0.5)"
-                      tick={{ fill: 'rgba(255,255,255,0.7)' }}
+                      stroke="rgba(28, 25, 23, 0.4)"
+                      tick={{ fill: 'rgba(28, 25, 23, 0.6)' }}
                     />
-                    <Tooltip 
+                    <Tooltip
                       contentStyle={{
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                        border: '1px solid rgba(255,255,255,0.2)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                        border: '1px solid rgba(255, 255, 255, 0.6)',
                         borderRadius: '12px',
                         backdropFilter: 'blur(10px)',
-                        color: '#fff'
+                        color: '#1c1917',
+                        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
                       }}
                     />
-                    <Line 
-                      type="monotone" 
-                      dataKey="stress" 
-                      stroke="#60a5fa" 
+                    <Line
+                      type="monotone"
+                      dataKey="stress"
+                      stroke="#9CAF88"
                       strokeWidth={3}
-                      dot={{ fill: '#60a5fa', r: 6 }}
+                      dot={{ fill: '#9CAF88', r: 6 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -199,32 +200,33 @@ export function ProgressView() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-white/10 backdrop-blur-lg rounded-3xl p-6 sm:p-8 border border-white/20"
+              className="bg-white/80 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 border border-white/60 shadow-xl"
             >
-              <h3 className="text-white text-2xl mb-6">Emotion Distribution</h3>
+              <h3 className="text-[#1c1917] text-2xl mb-6 font-serif">Emotion Distribution</h3>
               <div className="h-64 sm:h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={emotionStats}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                    <XAxis 
-                      dataKey="emotion" 
-                      stroke="rgba(255,255,255,0.5)"
-                      tick={{ fill: 'rgba(255,255,255,0.7)' }}
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(28, 25, 23, 0.1)" />
+                    <XAxis
+                      dataKey="emotion"
+                      stroke="rgba(28, 25, 23, 0.4)"
+                      tick={{ fill: 'rgba(28, 25, 23, 0.6)' }}
                     />
-                    <YAxis 
-                      stroke="rgba(255,255,255,0.5)"
-                      tick={{ fill: 'rgba(255,255,255,0.7)' }}
+                    <YAxis
+                      stroke="rgba(28, 25, 23, 0.4)"
+                      tick={{ fill: 'rgba(28, 25, 23, 0.6)' }}
                     />
-                    <Tooltip 
+                    <Tooltip
                       contentStyle={{
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                        border: '1px solid rgba(255,255,255,0.2)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                        border: '1px solid rgba(255, 255, 255, 0.6)',
                         borderRadius: '12px',
                         backdropFilter: 'blur(10px)',
-                        color: '#fff'
+                        color: '#1c1917',
+                        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
                       }}
                     />
-                    <Bar dataKey="count" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="count" fill="#AEC09A" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>

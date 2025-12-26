@@ -47,10 +47,10 @@ export function StressCheckIn({ onComplete }: StressCheckInProps) {
     // Get existing check-ins from localStorage
     const existingData = localStorage.getItem('mindBalanceCheckIns');
     const checkIns: CheckInData[] = existingData ? JSON.parse(existingData) : [];
-    
+
     // Add new check-in
     checkIns.push(checkIn);
-    
+
     // Save to localStorage
     localStorage.setItem('mindBalanceCheckIns', JSON.stringify(checkIns));
 
@@ -67,21 +67,21 @@ export function StressCheckIn({ onComplete }: StressCheckInProps) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-3xl bg-white/10 backdrop-blur-lg rounded-3xl p-6 sm:p-10 lg:p-12 border border-white/20"
+        className="w-full max-w-3xl bg-white/80 backdrop-blur-2xl rounded-[2rem] p-8 sm:p-12 border border-white/60 shadow-2xl shadow-stone-900/5"
       >
-        <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-3 text-center">
+        <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-3 text-center font-serif">
           Daily Check-In
         </h2>
-        <p className="text-white/70 text-center mb-10 sm:mb-12">
+        <p className="text-stone-600 text-center mb-10 sm:mb-12">
           How are you feeling today? Take a moment to reflect.
         </p>
 
         {/* Stress Level Slider */}
         <div className="mb-12 sm:mb-16">
-          <label className="text-white text-xl sm:text-2xl mb-6 block">
-            Stress Level: <span className="text-white/60">{stressLevel}/10</span>
+          <label className="text-[#1c1917] text-xl sm:text-2xl mb-6 block font-serif">
+            Stress Level: <span className="text-[#9CAF88] font-semibold">{stressLevel}/10</span>
           </label>
-          
+
           <div className="relative">
             <input
               type="range"
@@ -94,8 +94,8 @@ export function StressCheckIn({ onComplete }: StressCheckInProps) {
                 background: `linear-gradient(to right, #10b981 0%, #f59e0b ${(stressLevel - 1) * 11.11}%, #ef4444 100%)`,
               }}
             />
-            
-            <div className="flex justify-between mt-4 text-white/60 text-sm">
+
+            <div className="flex justify-between mt-4 text-stone-500 text-sm font-medium">
               <span>Low</span>
               <span>Moderate</span>
               <span>High</span>
@@ -105,35 +105,31 @@ export function StressCheckIn({ onComplete }: StressCheckInProps) {
 
         {/* Emotion Selection */}
         <div className="mb-10 sm:mb-12">
-          <label className="text-white text-xl sm:text-2xl mb-6 block">
+          <label className="text-[#1c1917] text-xl sm:text-2xl mb-6 block font-serif">
             What emotion best describes your state?
           </label>
-          
+
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
             {emotions.map((emotion) => {
               const Icon = emotion.icon;
               const isSelected = selectedEmotion === emotion.name;
-              
+
               return (
                 <motion.button
                   key={emotion.name}
                   onClick={() => setSelectedEmotion(emotion.name)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`p-4 sm:p-6 rounded-2xl border-2 transition-all ${
-                    isSelected
-                      ? 'bg-white/20 border-white/60'
-                      : 'bg-white/5 border-white/20 hover:bg-white/10'
-                  }`}
-                  style={{
-                    borderColor: isSelected ? emotion.color : undefined,
-                  }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`p-4 sm:p-6 rounded-2xl border transition-all ${isSelected
+                    ? 'bg-[#9CAF88]/20 border-[#9CAF88] shadow-md'
+                    : 'bg-white/50 border-white/60 hover:bg-white/80 hover:shadow-sm'
+                    }`}
                 >
-                  <Icon 
-                    className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2" 
+                  <Icon
+                    className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2"
                     style={{ color: emotion.color }}
                   />
-                  <div className="text-white text-sm sm:text-base">{emotion.name}</div>
+                  <div className="text-stone-700 text-sm sm:text-base font-medium">{emotion.name}</div>
                 </motion.button>
               );
             })}
@@ -146,16 +142,15 @@ export function StressCheckIn({ onComplete }: StressCheckInProps) {
           disabled={isSubmitting}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className={`w-full py-4 rounded-full text-white text-lg transition-all ${
-            isSubmitting
-              ? 'bg-white/20 cursor-not-allowed'
-              : 'bg-white/30 hover:bg-white/40 border border-white/40'
-          }`}
+          className={`w-full py-4 rounded-full text-white text-lg font-medium transition-all shadow-lg ${isSubmitting
+            ? 'bg-stone-400 cursor-not-allowed'
+            : 'bg-[#9CAF88] hover:bg-[#8B9D7A] shadow-[#9CAF88]/20'
+            }`}
         >
           {isSubmitting ? 'Saving Check-In...' : 'Complete Check-In'}
         </motion.button>
 
-        <p className="text-white/50 text-sm text-center mt-6">
+        <p className="text-stone-400 text-sm text-center mt-6">
           Your data is stored locally on your device and never shared.
         </p>
       </motion.div>
