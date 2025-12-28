@@ -49,9 +49,17 @@ MindBalance is a comprehensive mental health application designed to help users 
 
 ## 🏃‍♂️ Running the Application
 
+### Start the Frontend
+#### In client directory
+```bash
+npm run dev
+```
+
+_Frontend will start on http://localhost:3000_
+
 ### Start the Backend
 
-Open a terminal and run:
+Open a **new**  terminal and run:
 
 ```bash
 cd server
@@ -59,17 +67,6 @@ node server.js
 ```
 
 _Server will start on http://localhost:5000_
-
-### Start the Frontend
-
-Open a **new** terminal and run:
-
-```bash
-cd client
-npm run dev
-```
-
-_Frontend will start on http://localhost:3000_
 
 ## ✨ Features
 
