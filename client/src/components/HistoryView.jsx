@@ -70,20 +70,20 @@ export function HistoryView() {
       >
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10 sm:mb-12">
           <div>
-            <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-2">
+            <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-2 font-serif">
               Assessment History
             </h2>
-            <p className="text-white/70">
+            <p className="text-stone-600">
               {assessments.length} total check-in{assessments.length !== 1 ? 's' : ''}
             </p>
           </div>
         </div>
 
         {assessments.length === 0 ? (
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 text-center">
-            <Calendar className="w-16 h-16 text-white/40 mx-auto mb-4" />
-            <h3 className="text-white text-2xl mb-2">No History Yet</h3>
-            <p className="text-white/60">
+          <div className="bg-white/40 backdrop-blur-xl rounded-3xl p-12 border border-white/60 shadow-xl shadow-[#9CAF88]/5 text-center">
+            <Calendar className="w-16 h-16 text-[#9CAF88] mx-auto mb-4" />
+            <h3 className="text-[#1c1917] text-2xl mb-2 font-serif">No History Yet</h3>
+            <p className="text-stone-600">
               Your assessment history will appear here once you complete your first check-in.
             </p>
           </div>
@@ -96,8 +96,8 @@ export function HistoryView() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}
               >
-                <h3 className="text-white text-xl mb-4 flex items-center gap-3">
-                  <Calendar className="w-5 h-5 text-white/60" />
+                <h3 className="text-[#1c1917] text-xl mb-4 flex items-center gap-3 font-medium">
+                  <Calendar className="w-5 h-5 text-stone-500" />
                   {date}
                 </h3>
                 
@@ -108,17 +108,17 @@ export function HistoryView() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       whileHover={{ scale: 1.01 }}
-                      className="bg-white/10 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/20 hover:bg-white/15 transition-all"
+                      className="bg-white/40 backdrop-blur-xl rounded-2xl p-4 sm:p-6 border border-white/60 hover:bg-white/60 transition-all shadow-sm hover:shadow-md"
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="flex items-center gap-4 flex-1">
-                          <div className="text-white/60 text-sm min-w-[80px]">
+                          <div className="text-stone-500 text-sm min-w-[80px] font-medium">
                             {formatTime(item.date)}
                           </div>
                           
                           <div className="flex items-center gap-4 flex-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-white/60 text-sm">Stress Level:</span>
+                              <span className="text-stone-500 text-sm">Stress Level:</span>
                               <div 
                                 className="px-3 py-1 rounded-full text-sm font-medium"
                                 style={{
@@ -132,8 +132,8 @@ export function HistoryView() {
                             </div>
 
                             <div className="flex items-center gap-2">
-                              <span className="text-white/60 text-sm">Score:</span>
-                              <span className="text-white font-mono bg-white/10 px-2 py-0.5 rounded">
+                              <span className="text-stone-500 text-sm">Score:</span>
+                              <span className="text-[#1c1917] font-mono bg-white/50 border border-white/40 px-2 py-0.5 rounded font-medium">
                                 {item.score}
                               </span>
                             </div>

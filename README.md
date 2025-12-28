@@ -11,7 +11,7 @@ MindBalance is a comprehensive mental health application designed to help users 
 - **Styling**: Tailwind CSS v4
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
-- **UI Components**: Radix UI (via shadcn/ui patterns)
+- **UI Components**: Radix UI (Shadcn UI)
 
 ### Backend
 
@@ -30,9 +30,10 @@ MindBalance is a comprehensive mental health application designed to help users 
 1.  **Clone the repository**
 
     ```bash
-    git clone -b features-refactor https://github.com/Princekr267/MindBalance.git
+    git clone https://github.com/Princekr267/MindBalance.git
     cd MindBalance
     ```
+
 2.  **Install Server Dependencies**
 
     ```bash
@@ -73,7 +74,7 @@ _Frontend will start on http://localhost:3000_
 ## ✨ Features
 
 - **Stress Assessment**: Take quick questionnaires to gauge your current stress levels.
-- **Meditation Library**: Access a curated list of meditation sessions.
+- **Wellness Solutions**: Access curated coping strategies and mindfulness techniques tailored to your state.
 - **Progress Tracking**: Visualize your stress history over time.
 - **Personalized Tips**: Get daily wellness tips tailored specifically to your profession (e.g., Developers, Students, Teachers).
 - **Wellness Goals**: Set and display your personal motivation goal on your dashboard.

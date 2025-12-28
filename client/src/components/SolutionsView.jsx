@@ -173,10 +173,10 @@ export function SolutionsView() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`bg-white/80 backdrop-blur-2xl rounded-[2rem] p-8 border shadow-xl hover:shadow-2xl hover:shadow-[#9CAF88]/10 transition-all hover:-translate-y-1 duration-300 ${
+                className={`bg-white/40 backdrop-blur-xl rounded-[2rem] p-8 border shadow-xl hover:shadow-2xl hover:shadow-[#9CAF88]/10 transition-all hover:-translate-y-1 duration-300 ${
                   isPersonalized
                     ? "border-[#10b981] ring-2 ring-[#10b981]/20"
-                    : "border-white/60 hover:bg-white/90"
+                    : "border-white/60 hover:bg-white/80"
                 }`}
               >
                 <div className="flex items-center gap-4 mb-6">
@@ -246,7 +246,7 @@ export function SolutionsView() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-white/60 shadow-lg"
+          className="mt-12 bg-white/40 backdrop-blur-xl rounded-3xl p-8 border border-white/60 shadow-lg"
         >
           <h3 className="text-[#1c1917] text-2xl mb-4 font-serif">Remember</h3>
           <ul className="space-y-3 text-stone-600">

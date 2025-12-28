@@ -11,7 +11,7 @@ import { SignUpModal } from "./components/SignUpModal";
 import { ProfileModal } from "./components/ProfileModal";
 import { PersonalizedTips } from "./components/PersonalizedTips";
 import { Footer } from "./components/Footer";
-import backgroundInk from "./assets/background-ink.png";
+import natureBg from "./assets/nature_bg.png";
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
@@ -134,9 +134,10 @@ export default function App() {
       <div 
         className="absolute inset-0 bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url(${backgroundInk})`,
+          backgroundImage: `url(${natureBg})`,
           backgroundSize: 'cover',
-          opacity: 0.8,
+          backgroundAttachment: 'fixed',
+          opacity: 1.0,
           mixBlendMode: 'normal',
         }}
       />
@@ -145,7 +146,7 @@ export default function App() {
       <div 
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          backgroundColor: 'rgba(255, 255, 255, 0.4)',
         }}
       />
       
@@ -163,7 +164,7 @@ export default function App() {
       {/* Top Navigation */}
       <nav 
         className={`fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 lg:px-12 py-4 sm:py-6 transition-all duration-300 ${
-          scrolled ? 'bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg py-3' : 'bg-transparent py-4 sm:py-6'
+          scrolled ? 'bg-white/40 backdrop-blur-md border-b border-stone-200/30 shadow-sm py-3' : 'bg-transparent py-4 sm:py-6'
         }`}
       >
         <div className="max-w-[1920px] mx-auto flex items-center justify-between">
@@ -175,7 +176,7 @@ export default function App() {
             className="cursor-pointer"
             onClick={() => setCurrentView('landing')}
           >
-            <span className="text-white text-xl sm:text-2xl font-[Aldrich]">
+            <span className="text-[#1c1917] text-xl sm:text-2xl font-[Aldrich]">
               MindBalance
             </span>
           </motion.div>
@@ -184,25 +185,25 @@ export default function App() {
           <div className="hidden lg:flex items-center gap-8">
             <button 
               onClick={() => handleNavigation('checkin')} 
-              className="text-white/80 hover:text-white transition-colors"
+              className="text-stone-600 hover:text-[#1c1917] transition-colors font-medium"
             >
               Check-In
             </button>
             <button 
               onClick={() => handleNavigation('progress')} 
-              className="text-white/80 hover:text-white transition-colors"
+              className="text-stone-600 hover:text-[#1c1917] transition-colors font-medium"
             >
               Progress
             </button>
             <button 
               onClick={() => handleNavigation('solutions')} 
-              className="text-white/80 hover:text-white transition-colors"
+              className="text-stone-600 hover:text-[#1c1917] transition-colors font-medium"
             >
               Solutions
             </button>
             <button 
               onClick={() => handleNavigation('history')} 
-              className="text-white/80 hover:text-white transition-colors"
+              className="text-stone-600 hover:text-[#1c1917] transition-colors font-medium"
             >
               History
             </button>
@@ -217,7 +218,7 @@ export default function App() {
           >
             <button 
               onClick={handleGetStarted}
-              className="hidden sm:block px-4 sm:px-6 py-2 sm:py-2.5 bg-white text-[#254250] font-semibold rounded-full border border-white hover:bg-white/90 transition-all text-sm shadow-lg shadow-black/10"
+              className="hidden sm:block px-4 sm:px-6 py-2 sm:py-2.5 bg-[#1c1917] text-white font-semibold rounded-full hover:bg-[#1c1917]/80 transition-all text-sm shadow-lg shadow-black/5"
             >
               Get Started
             </button>
@@ -227,7 +228,7 @@ export default function App() {
                 {user?.name && (
                   <button 
                     onClick={() => setShowProfileModal(true)}
-                    className="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-full border border-white/20 transition-all text-sm font-medium"
+                    className="hidden sm:flex items-center gap-2 bg-stone-100/50 hover:bg-stone-200/50 text-[#1c1917] px-4 sm:px-6 py-2 sm:py-2.5 rounded-full border border-stone-200 transition-all text-sm font-medium"
                   >
                     <UserIcon className="w-4 h-4" />
                     <span>{user.name}</span>
@@ -247,7 +248,7 @@ export default function App() {
                   setShowSignUpModal(true);
                   setMenuOpen(false);
                 }}
-                className="hidden sm:block px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 bg-white/20 text-white rounded-full border border-white/40 hover:bg-white/30 transition-all text-sm sm:text-base"
+                className="hidden sm:block px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 bg-white/50 text-[#1c1917] rounded-full border border-stone-200 hover:bg-white/80 transition-all text-sm sm:text-base font-medium"
               >
                 Login
               </button>
@@ -255,7 +256,7 @@ export default function App() {
 
             <button 
               onClick={() => setMenuOpen(!menuOpen)}
-              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-white hover:bg-white/10 rounded-full transition-all lg:hidden"
+              className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-[#1c1917] hover:bg-black/5 rounded-full transition-all lg:hidden"
             >
               <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
@@ -268,14 +269,14 @@ export default function App() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="lg:hidden fixed top-20 right-4 z-50 bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-6 min-w-[200px]"
+          className="lg:hidden fixed top-20 right-4 z-50 bg-white/90 backdrop-blur-lg rounded-2xl border border-stone-200 shadow-xl p-6 min-w-[200px]"
         >
           <div className="flex flex-col gap-4">
             {/* Mobile Profile Option */}
             {isAuthenticated && user && (
                <button 
                  onClick={() => { setShowProfileModal(true); setMenuOpen(false); }}
-                 className="text-white hover:text-white/70 transition-colors text-left font-semibold pb-2 border-b border-white/10 mb-2 flex items-center gap-2"
+                 className="text-[#1c1917] hover:text-[#1c1917]/70 transition-colors text-left font-semibold pb-2 border-b border-stone-200 mb-2 flex items-center gap-2"
                >
                  <UserIcon className="w-4 h-4" />
                  {user.name}
@@ -284,32 +285,32 @@ export default function App() {
 
             <button 
               onClick={() => { handleNavigation('checkin'); setMenuOpen(false); }}
-              className="text-white hover:text-white/70 transition-colors text-left"
+              className="text-[#1c1917] hover:text-[#1c1917]/70 transition-colors text-left"
             >
               Check-In
             </button>
             <button 
               onClick={() => { handleNavigation('progress'); setMenuOpen(false); }}
-              className="text-white hover:text-white/70 transition-colors text-left"
+              className="text-[#1c1917] hover:text-[#1c1917]/70 transition-colors text-left"
             >
               Progress
             </button>
             <button 
               onClick={() => { handleNavigation('solutions'); setMenuOpen(false); }}
-              className="text-white hover:text-white/70 transition-colors text-left"
+              className="text-[#1c1917] hover:text-[#1c1917]/70 transition-colors text-left"
             >
               Solutions
             </button>
             <button 
               onClick={() => { handleNavigation('history'); setMenuOpen(false); }}
-              className="text-white hover:text-white/70 transition-colors text-left"
+              className="text-[#1c1917] hover:text-[#1c1917]/70 transition-colors text-left"
             >
               History
             </button>
             {isAuthenticated ? (
               <button 
                 onClick={handleLogout}
-                className="text-red-300 hover:text-red-200 transition-colors text-left pt-2 border-t border-white/10"
+                className="text-red-500 hover:text-red-600 transition-colors text-left pt-2 border-t border-stone-200"
               >
                 Logout
               </button>
@@ -320,7 +321,7 @@ export default function App() {
                   setShowSignUpModal(true);
                   setMenuOpen(false);
                 }}
-                className="text-white hover:text-white/70 transition-colors text-left pt-2 border-t border-white/10"
+                className="text-[#1c1917] hover:text-[#1c1917]/70 transition-colors text-left pt-2 border-t border-stone-200"
               >
                 Login
               </button>
@@ -339,15 +340,15 @@ export default function App() {
         >
           <a
             href="#"
-            className="w-9 h-9 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all"
+            className="w-9 h-9 bg-white/50 backdrop-blur-sm rounded-full flex items-center justify-center border border-stone-200 hover:bg-white/80 transition-all shadow-sm"
           >
-            <Github className="w-4 h-4 text-white" />
+            <Github className="w-4 h-4 text-[#1c1917]" />
           </a>
           <a
             href="#"
-            className="w-9 h-9 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 hover:bg-white/20 transition-all"
+            className="w-9 h-9 bg-white/50 backdrop-blur-sm rounded-full flex items-center justify-center border border-stone-200 hover:bg-white/80 transition-all shadow-sm"
           >
-            <Share2 className="w-4 h-4 text-white" />
+            <Share2 className="w-4 h-4 text-[#1c1917]" />
           </a>
         </motion.div>
       )}
@@ -370,13 +371,13 @@ export default function App() {
                <motion.div 
                  initial={{ opacity: 0, x: 20 }}
                  animate={{ opacity: 1, x: 0 }}
-                 className="md:col-span-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 flex flex-col justify-center h-full w-full"
+                 className="md:col-span-4 bg-white/40 backdrop-blur-xl border border-white/60 shadow-lg shadow-[#9CAF88]/5 rounded-2xl p-6 flex flex-col justify-center h-full w-full"
                >
                  <div className="flex items-center gap-2 mb-2">
                    <span className="text-xl">🎯</span>
-                   <span className="text-white/60 text-xs uppercase tracking-wider font-semibold">My Wellness Goal</span>
+                   <span className="text-stone-500 text-xs uppercase tracking-wider font-semibold">My Wellness Goal</span>
                  </div>
-                 <div className="text-white text-lg font-medium leading-relaxed">
+                 <div className="text-[#1c1917] text-lg font-medium leading-relaxed">
                    "{user.bio}"
                  </div>
                </motion.div>

@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useAnimationFrame } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import bubbleImg from "../assets/18680a3167c361ca279402a28253228f3e6779f2.png";
+import bubbleImg from "../assets/bubble.png";
 
 function Bubble({ id, initialX, initialY, size, onPop, allBubbles, scrollHeight }) {
   const x = useMotionValue(initialX);

@@ -68,20 +68,20 @@ export function PersonalizedTips({ profession }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 w-full flex items-start gap-4"
+      className="bg-white/40 backdrop-blur-xl rounded-2xl p-6 border border-white/60 w-full flex items-start gap-4 shadow-lg shadow-[#9CAF88]/5"
     >
-      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0 text-xl">
+      <div className="w-10 h-10 bg-white/50 border border-white/40 rounded-full flex items-center justify-center flex-shrink-0 text-xl shadow-sm">
         {tip.icon}
       </div>
       <div>
-        <h3 className="text-white text-lg font-semibold mb-1">
+        <h3 className="text-[#1c1917] text-lg font-semibold mb-1 font-serif">
           Daily Tip for {profession}s
         </h3>
-        <p className="text-white/80 leading-relaxed">
+        <p className="text-stone-600 leading-relaxed font-medium">
           {tip.text}
         </p>
       </div>
-      <Sparkles className="w-5 h-5 text-yellow-300 absolute top-4 right-4 opacity-50" />
+      <Sparkles className="w-5 h-5 text-[#9CAF88] absolute top-4 right-4 opacity-50" />
     </motion.div>
   );
 }

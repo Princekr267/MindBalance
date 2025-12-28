@@ -55,98 +55,108 @@ export function ProfileModal({ user, onClose, onUpdate }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-stone-900/40 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0, y: 20 }}
+        initial={{ scale: 0.95, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        transition={{ duration: 0.3 }}
-        className="relative w-full max-w-md bg-gradient-to-b from-[#4a7a7d]/90 via-[#3a6569]/90 to-[#254250]/90 backdrop-blur-xl rounded-3xl border border-white/20 p-6 shadow-2xl overflow-y-auto max-h-[85vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent"
+        exit={{ scale: 0.95, opacity: 0, y: 20 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="relative w-full max-w-lg bg-gradient-to-br from-white/90 via-white/80 to-white/60 backdrop-blur-2xl rounded-[2.5rem] border border-white/60 p-8 sm:p-10 shadow-2xl shadow-[#9CAF88]/20 overflow-y-auto max-h-[90vh] [&::-webkit-scrollbar]:w-0"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-all text-white"
+          className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/40 hover:bg-white/80 transition-all text-stone-500 hover:text-stone-800 hover:shadow-lg hover:scale-105"
         >
-          <X className="w-4 h-4" />
+          <X className="w-5 h-5" />
         </button>
 
-        <div className="mb-6">
-          <h2 className="text-white text-2xl mb-1">Edit Profile</h2>
-          <p className="text-white/70 text-sm">Update your personal details</p>
+        <div className="mb-10 text-center">
+          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[#9CAF88] to-[#7A8C6B] rounded-full flex items-center justify-center shadow-lg mb-6 shadow-[#9CAF88]/20">
+            <User className="w-10 h-10 text-white" />
+          </div>
+          <h2 className="text-[#1c1917] text-3xl mb-2 font-serif font-medium tracking-tight">Your Profile</h2>
+          <p className="text-stone-500 text-base">Manage your personal wellness journey</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
-            <div className="bg-red-500/20 border border-red-500/30 text-red-300 px-4 py-3 rounded-xl text-sm">
+            <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-2xl text-sm flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
               {error}
             </div>
           )}
 
-           {/* Read-only Email Field */}
-           <div className="mb-4 p-3 bg-white/5 rounded-xl border border-white/10 flex items-center gap-3">
-             <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
-               <span className="text-white text-xs font-bold">@</span>
+           {/* Read-only Email Field - Styled as a badge */}
+           <div className="bg-stone-50/50 rounded-2xl p-2 flex items-center gap-3 border border-stone-100">
+             <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm">
+               <span className="text-[#9CAF88] font-bold text-lg">@</span>
              </div>
-             <div>
-               <p className="text-white/50 text-xs uppercase tracking-wider">Email (Read Only)</p>
-               <p className="text-white text-sm">{user.email}</p>
+             <div className="flex-1 px-1">
+               <p className="text-stone-400 text-[10px] uppercase tracking-widest font-bold">Account Email</p>
+               <p className="text-[#1c1917] font-medium text-sm">{user.email}</p>
              </div>
            </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-stone-600 text-sm font-medium ml-1">Full Name</label>
+              <div className="relative group">
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full bg-white/40 border border-white/60 rounded-2xl px-4 py-3.5 text-[#1c1917] placeholder:text-stone-400 focus:outline-none focus:bg-white/80 focus:border-[#9CAF88] focus:ring-4 focus:ring-[#9CAF88]/10 transition-all font-medium"
+                  required
+                />
+              </div>
+            </div>
 
-          <div>
-            <label className="block text-white/80 mb-2 text-sm">Full Name</label>
-            <div className="relative">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-12 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-all"
-                required
-              />
+            <div className="space-y-2">
+              <label className="text-stone-600 text-sm font-medium ml-1">Birth Date</label>
+              <div className="relative group">
+                <input
+                  type="date"
+                  value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                  className="w-full bg-white/40 border border-white/60 rounded-2xl px-4 py-3.5 text-[#1c1917] placeholder:text-stone-400 focus:outline-none focus:bg-white/80 focus:border-[#9CAF88] focus:ring-4 focus:ring-[#9CAF88]/10 transition-all font-medium min-h-[50px]"
+                />
+              </div>
             </div>
           </div>
 
-          <div>
-            <label className="block text-white/80 mb-2 text-sm">Date of Birth</label>
-            <div className="relative">
-              <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
-              <input
-                type="date"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-12 py-3 text-white/90 placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-all [color-scheme:dark]"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-white/80 mb-2 text-sm">Profession</label>
-            <div className="relative">
-              <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
+          <div className="space-y-2">
+            <label className="text-stone-600 text-sm font-medium ml-1">Profession</label>
+            <div className="relative group">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-[#9CAF88] transition-colors">
+                <Briefcase className="w-5 h-5" />
+              </div>
               <input
                 type="text"
                 value={profession}
                 onChange={(e) => setProfession(e.target.value)}
                 placeholder="e.g. Developer, Student, Teacher"
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-12 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-all"
+                className="w-full bg-white/40 border border-white/60 rounded-2xl pl-12 pr-4 py-4 text-[#1c1917] placeholder:text-stone-400 focus:outline-none focus:bg-white/80 focus:border-[#9CAF88] focus:ring-4 focus:ring-[#9CAF88]/10 transition-all"
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-white/80 mb-2 text-sm">My Wellness Goal (Bio)</label>
-            <div className="relative">
-              <Heart className="absolute left-4 top-4 w-5 h-5 text-white/50" />
+          <div className="space-y-2">
+            <label className="text-stone-600 text-sm font-medium ml-1 flex items-center gap-2">
+              Wellness Goal 
+              <span className="text-xs text-stone-400 font-normal">(Your daily motivation)</span>
+            </label>
+            <div className="relative group">
+              <div className="absolute left-4 top-5 text-stone-400 group-focus-within:text-[#9CAF88] transition-colors">
+                <Heart className="w-5 h-5" />
+              </div>
               <textarea
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                placeholder="What is your main motivation? e.g. 'I want to sleep better'"
-                className="w-full bg-white/10 border border-white/20 rounded-xl pl-12 pr-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-white/40 transition-all min-h-[100px] resize-none"
+                placeholder="What drives you? e.g. 'Finding peace in chaos'"
+                className="w-full bg-white/40 border border-white/60 rounded-2xl pl-12 pr-4 py-4 text-[#1c1917] placeholder:text-stone-400 focus:outline-none focus:bg-white/80 focus:border-[#9CAF88] focus:ring-4 focus:ring-[#9CAF88]/10 transition-all min-h-[120px] resize-none leading-relaxed"
               />
             </div>
           </div>
@@ -154,9 +164,16 @@ export function ProfileModal({ user, onClose, onUpdate }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-white/20 hover:bg-white/30 disabled:bg-white/10 border border-white/30 text-white py-3 rounded-xl transition-all mt-4"
+            className="w-full bg-[#1c1917] hover:bg-[#2c2927] disabled:bg-stone-300 text-white py-4 rounded-2xl transition-all mt-4 shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 duration-300 font-medium text-lg flex items-center justify-center gap-2"
           >
-            {loading ? 'Saving...' : 'Save Changes'}
+            {loading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Saving...
+              </>
+            ) : (
+              'Save Changes'
+            )}
           </button>
         </form>
       </motion.div>

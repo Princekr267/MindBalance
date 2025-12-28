@@ -113,14 +113,14 @@ export function LandingPage({ user, onGetStarted, onStartJourney }) {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onStartJourney || onGetStarted}
-                className="px-8 py-4 bg-white/30 backdrop-blur-md border border-white/40 text-[#1c1917] font-medium rounded-full hover:bg-white/50 transition-all text-lg shadow-lg hover:shadow-xl w-full sm:w-auto"
+                className="px-8 py-4 bg-white/40 backdrop-blur-md border border-white/40 text-[#1c1917] font-medium rounded-full hover:bg-white/50 transition-all text-lg shadow-lg hover:shadow-xl w-full sm:w-auto"
               >
                 Start Your Journey
               </motion.button>
             )}
             <button
               onClick={() => document.getElementById('how-mindbalance-helps')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-[#1c1917] font-medium rounded-full hover:bg-white/20 transition-all text-lg w-full sm:w-auto"
+              className="px-8 py-4 bg-white/40 backdrop-blur-sm border border-white/40 text-[#1c1917] font-medium rounded-full hover:bg-white/50 transition-all text-lg w-full sm:w-auto"
             >
               Learn More
             </button>
@@ -152,7 +152,7 @@ export function LandingPage({ user, onGetStarted, onStartJourney }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white/70 backdrop-blur-xl rounded-2xl p-8 border border-white/60 hover:bg-white/90 transition-all hover:shadow-2xl hover:shadow-[#9CAF88]/10 group hover:-translate-y-1 duration-300"
+                className="bg-white/40 backdrop-blur-xl rounded-2xl p-8 border border-white/60 hover:bg-white/60 transition-all hover:shadow-2xl hover:shadow-[#9CAF88]/10 group hover:-translate-y-1 duration-300"
               >
                 <div className="w-14 h-14 bg-[#9CAF88]/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <feature.icon className="w-7 h-7 text-[#7A8C6B]" />
@@ -247,7 +247,7 @@ export function LandingPage({ user, onGetStarted, onStartJourney }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-5xl mx-auto bg-white/80 backdrop-blur-2xl rounded-[2rem] p-12 border border-white/60 shadow-2xl shadow-[#9CAF88]/5"
+          className="max-w-5xl mx-auto bg-white/40 backdrop-blur-2xl rounded-[2rem] p-12 border border-white/60 shadow-2xl shadow-[#9CAF88]/5"
         >
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 divide-y sm:divide-y-0 sm:divide-x divide-stone-200/50">
             <div className="text-center pt-8 sm:pt-0">

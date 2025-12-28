@@ -76,17 +76,17 @@ export function StressCheckIn({ onComplete }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-3xl bg-white/10 backdrop-blur-lg rounded-3xl p-6 sm:p-10 lg:p-12 border border-white/20"
+        className="w-full max-w-3xl bg-white/40 backdrop-blur-xl rounded-3xl p-6 sm:p-10 lg:p-12 border border-white/60 shadow-xl shadow-[#9CAF88]/5"
       >
-        <h2 className="text-white text-2xl sm:text-3xl lg:text-4xl mb-2 text-center">
+        <h2 className="text-[#1c1917] text-2xl sm:text-3xl lg:text-4xl mb-2 text-center font-serif">
           Wellness Assessment
         </h2>
-        <p className="text-white/60 text-center mb-8 text-sm">
+        <p className="text-stone-600 text-center mb-8 text-sm">
           Over the last 2 weeks, how often have you been bothered by the following problems?
         </p>
 
         {/* Progress Bar */}
-        <div className="w-full bg-white/10 h-2 rounded-full mb-8">
+        <div className="w-full bg-stone-200 h-2 rounded-full mb-8">
           <motion.div 
             className="bg-[#10b981] h-full rounded-full"
             initial={{ width: 0 }}
@@ -96,7 +96,7 @@ export function StressCheckIn({ onComplete }) {
 
         {/* Question */}
         <div className="mb-8 min-h-[100px]">
-           <h3 className="text-white text-xl sm:text-2xl font-medium text-center">
+           <h3 className="text-[#1c1917] text-xl sm:text-2xl font-medium text-center leading-relaxed">
              {questions[currentQuestion]}
            </h3>
         </div>
@@ -111,8 +111,8 @@ export function StressCheckIn({ onComplete }) {
               whileTap={{ scale: 0.98 }}
               className={`p-4 rounded-xl border text-left transition-all ${
                 answers[currentQuestion] === option.value
-                  ? 'bg-white/30 border-white/60 text-white shadow-lg'
-                  : 'bg-white/5 border-white/20 text-white/80 hover:bg-white/10'
+                  ? 'bg-[#1c1917] border-[#1c1917] text-white shadow-lg'
+                  : 'bg-white/50 border-white/60 text-stone-600 hover:bg-white/80 hover:border-stone-300'
               }`}
             >
               {option.label}
@@ -125,7 +125,7 @@ export function StressCheckIn({ onComplete }) {
           <button
             onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
             disabled={currentQuestion === 0}
-            className="text-white/50 hover:text-white disabled:opacity-30 transition-colors"
+            className="text-stone-400 hover:text-[#1c1917] disabled:opacity-30 transition-colors font-medium"
           >
             Previous
           </button>
@@ -134,12 +134,12 @@ export function StressCheckIn({ onComplete }) {
              <button
              onClick={handleSubmit}
              disabled={!allAnswered || isSubmitting}
-             className="px-8 py-3 bg-[#10b981] text-white rounded-full font-medium hover:bg-[#059669] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+             className="px-8 py-3 bg-[#10b981] text-white rounded-full font-medium hover:bg-[#059669] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-green-900/10"
            >
              {isSubmitting ? 'Saving...' : 'See Results'}
            </button>
           ) : (
-            <span className="text-white/40 text-sm">
+            <span className="text-stone-400 text-sm font-medium">
               {currentQuestion + 1} of {questions.length}
             </span>
           )}
