@@ -1,19 +1,14 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import axios from 'axios';
-import { 
-  Smile, 
-  Frown, 
-  Meh, 
-  Wind, 
-  CloudRain, 
-  Activity, 
-  BrainCircuit, 
+import {
+  Smile,
+  Meh,
+  Wind,
+  CloudRain,
+  Activity,
+  BrainCircuit,
   HeartPulse,
-  Coffee,
-  Briefcase,
-  Users,
-  Banknote,
   ChevronRight,
   ChevronLeft
 } from "lucide-react";
