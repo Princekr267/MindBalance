@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Expert Insights - MindBalance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#45645e",
+                      "surface-container": "#e9edff",
+                      "surface-bright": "#faf9ff",
+                      "outline-variant": "#c1c8c5",
+                      "surface-tint": "#45645e",
+                      "surface-container-low": "#f1f3ff",
+                      "secondary-fixed": "#e0e0ff",
+                      "tertiary": "#30628a",
+                      "secondary-container": "#b5b9ff",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#dce2f8",
+                      "on-surface": "#151b2b",
+                      "surface-container-highest": "#dce2f8",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#9bcbf8",
+                      "on-secondary-fixed-variant": "#3c417e",
+                      "on-tertiary-fixed": "#001d32",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#d3daef",
+                      "inverse-primary": "#accec5",
+                      "secondary": "#545997",
+                      "background": "#faf9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#0f1251",
+                      "on-primary-fixed": "#00201b",
+                      "on-error": "#ffffff",
+                      "surface": "#faf9ff",
+                      "on-secondary-container": "#434785",
+                      "primary-fixed": "#c7eae1",
+                      "on-tertiary-container": "#00395a",
+                      "on-background": "#151b2b",
+                      "surface-container-high": "#e1e8fd",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#bfc2ff",
+                      "on-tertiary-fixed-variant": "#104a70",
+                      "primary-fixed-dim": "#accec5",
+                      "on-primary-fixed-variant": "#2d4c46",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#1b3b35",
+                      "on-surface-variant": "#414846",
+                      "primary-container": "#84a59d",
+                      "tertiary-container": "#73a3ce",
+                      "tertiary-fixed": "#cde5ff",
+                      "inverse-surface": "#293041",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#edf0ff",
+                      "outline": "#717976"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "glass-blur": "16px",
+                      "margin-desktop": "64px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "margin-mobile": "20px",
+                      "container-max": "1200px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Lexend"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-xl": ["Lexend"],
+                      "headline-xl-mobile": ["Lexend"],
+                      "headline-lg": ["Lexend"],
+                      "headline-sm": ["Lexend"],
+                      "label-md": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                      "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                      "headline-xl-mobile": ["36px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                      "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                      "headline-sm": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                      "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                      "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .backdrop-blur-glass {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .ambient-bloom {
+            box-shadow: 0px 20px 40px rgba(0,0,0,0.04);
+        }
+        
+        /* Soft pulsing animation for buttons */
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.95; }
+        }
+        .btn-pulse:hover {
+            animation: subtle-pulse 2s ease-in-out infinite;
+        }
+
+        /* Abstract ambient background */
+        .ambient-bg {
+            background: radial-gradient(circle at 20% 30%, rgba(132, 165, 157, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(181, 185, 255, 0.15) 0%, transparent 50%);
+            background-color: #faf9ff; /* Force light mode background */
+        }
+        
+        /* Ensure light mode for this specific request despite dark class on HTML */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="ambient-bg min-h-screen relative overflow-x-hidden md:hidden"> <!-- Mobile only as requested -->
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-margin-mobile py-4 bg-white/40 backdrop-blur-glass border-b border-white/30 transition-all duration-300 ease-in-out shadow-none">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">eco</span>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">MindBalance</span>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="notifications" class="text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="settings" class="text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="pt-[88px] pb-[100px] px-margin-mobile flex flex-col gap-6">
+<!-- Header -->
+<header class="pt-4 pb-2">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-background">Expert Insights</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Guidance from clinical professionals for your digital sanctuary.</p>
+</header>
+<!-- Featured Article (Bento style highlight) -->
+<section class="relative rounded-xl overflow-hidden ambient-bloom border border-white/30 bg-white/40 backdrop-blur-glass p-1">
+<div class="relative h-[240px] rounded-lg overflow-hidden">
+<img alt="Abstract ripple image" class="w-full h-full object-cover" data-alt="A serene, abstract macro photograph of water ripples radiating outward from a central point. The color palette is composed of soft sage greens, pale lavenders, and deep midnight navy blues, creating a calming, tranquil atmosphere. The lighting is diffused and ethereal, highlighting the gentle curves of the liquid surface. The image evokes a sense of mindfulness and deep focus, perfectly aligned with a light-mode mental wellness digital sanctuary." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMuZwL-CmKgT1YGg17Hgow_P-zfZIlyH43f-achZSYtqkqK1feP3DRo7WK_MtpWPOOaXPrdYJFSTPCO8aFUarx0lyaKvE2GWPm79sL2MTucIf0asqpKvI_9AQCG9O2iAPI2pyfzqnhBAhcKHlVWFroBl_n4gGbEsmQ6lWweYWTFxNBhDhmOwaGsDOWgko22WOwNp8SdR39LrkQoKqwq8_FcGYywhZoJNzkCtb9sT08XI2T5ZnJxC6tfWQR67Q1pa_DZVSTS1ty0YU"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary-container/80 backdrop-blur-glass text-on-primary-container px-3 py-1 rounded-full font-label-md text-label-md">Featured</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
+<h2 class="font-headline-md text-headline-md text-white">The Neuroscience of Stillness</h2>
+<p class="font-body-sm text-body-sm text-white/80 mt-1">Dr. Aris Thorne • 8 min read</p>
+</div>
+</div>
+<div class="p-4 bg-white/50 backdrop-blur-glass rounded-b-lg">
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Discover how intentional moments of pause physically alter the neural pathways associated with stress and anxiety recovery.</p>
+<div class="mt-4 flex justify-between items-center">
+<button class="text-primary font-label-md text-label-md flex items-center gap-1 hover:opacity-80 transition-opacity">
+                        Read full article <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">bookmark_border</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Scrollable List of Articles (Horizontal snap for mobile) -->
+<section>
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-background">Latest Articles</h3>
+<button class="text-tertiary font-label-md text-label-md">View All</button>
+</div>
+<div class="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-margin-mobile px-margin-mobile hide-scrollbar" style="scrollbar-width: none; -ms-overflow-style: none;">
+<!-- Article 1 -->
+<div class="snap-start flex-none w-[280px] rounded-xl border border-white/30 bg-white/40 backdrop-blur-glass ambient-bloom overflow-hidden flex flex-col">
+<div class="h-[140px] relative">
+<img alt="Circadian Rhythm" class="w-full h-full object-cover" data-alt="A soft, blurred photograph of morning light filtering through sheer white curtains onto a light wooden floor. The color palette features pale yellows, soft whites, and light lavender shadows, conveying a gentle awakening. The composition is minimal and airy, emphasizing the concept of natural rhythms and peaceful mornings. The aesthetic fits perfectly within a bright, mindful digital space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLDLnDyMWz9HEFD0oJP38TrgJTQ-C5Cg-TZjoMYBVDBTLPxEMntLY-0HJA9m9J9CReNrJcAjZ6EhtVoA_Eqji83k1SNta_M3MRIK7FahJgJED2UPpSH4uteleM7cGbp5H61Ke3qp_qQoaGkoToqI4IaGxgBxCrRBepY6f414UFRYDYHF2xvkP9VRz_X0o7a5lhhywHA_t_BiYh7GV2vU3tMqtRa9yzZCkSdq4jAK419-2mPWC8bUIgXqGKC740UaKyCSshLi3JgdE"/>
+</div>
+<div class="p-4 flex-grow flex flex-col justify-between bg-white/30">
+<div>
+<span class="text-secondary font-label-md text-[10px] uppercase tracking-wider">Sleep Science</span>
+<h4 class="font-headline-sm text-[18px] text-on-background mt-1 leading-snug">Resetting Your Circadian Rhythm</h4>
+</div>
+<div class="mt-4 flex justify-between items-end">
+<span class="font-body-sm text-[12px] text-on-surface-variant">5 min read</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Article 2 -->
+<div class="snap-start flex-none w-[280px] rounded-xl border border-white/30 bg-white/40 backdrop-blur-glass ambient-bloom overflow-hidden flex flex-col">
+<div class="h-[140px] relative">
+<img alt="Boundaries" class="w-full h-full object-cover" data-alt="A minimalist composition featuring a smooth, pale river stone resting securely on a bed of fine, raked white sand. A subtle, soft shadow separates the stone from the sand. The colors are muted sage, off-white, and pale grey. The image evokes a strong sense of gentle but firm boundaries, protection, and zen-like calm, suitable for a light-mode wellness application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCn_dG3eyQsacJ-Qg99811Xqwg6XNrJ9NOI_mZNICoXReH5_mnvAIleQC9f41IdNfEYz6KZh2YyVt4rTVkrrW9SPEPGkh7W-reYNtfAtTvIQEq1ui4eifJ3ewYhmy_xSNS2EQCUazX_QRbiqk9J64_fk99ZEiqtAhWEX-hYB5Ng9LmOvu5LST-pEglHNcJl31ni-5h9ByiVwBVWG0L-1p3NXxzfJ0oDIPHqZg8wY7AhRycQ947Sk8mEIgzgxcKozo2s8vZUJ4-9wW4"/>
+</div>
+<div class="p-4 flex-grow flex flex-col justify-between bg-white/30">
+<div>
+<span class="text-secondary font-label-md text-[10px] uppercase tracking-wider">Psychology</span>
+<h4 class="font-headline-sm text-[18px] text-on-background mt-1 leading-snug">Setting Gentle Digital Boundaries</h4>
+</div>
+<div class="mt-4 flex justify-between items-end">
+<span class="font-body-sm text-[12px] text-on-surface-variant">6 min read</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Article 3 -->
+<div class="snap-start flex-none w-[280px] rounded-xl border border-white/30 bg-white/40 backdrop-blur-glass ambient-bloom overflow-hidden flex flex-col">
+<div class="h-[140px] relative">
+<div class="w-full h-full bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] text-secondary/50">self_improvement</span>
+</div>
+</div>
+<div class="p-4 flex-grow flex flex-col justify-between bg-white/30">
+<div>
+<span class="text-secondary font-label-md text-[10px] uppercase tracking-wider">Practice</span>
+<h4 class="font-headline-sm text-[18px] text-on-background mt-1 leading-snug">Micro-Meditations for Work</h4>
+</div>
+<div class="mt-4 flex justify-between items-end">
+<span class="font-body-sm text-[12px] text-on-surface-variant">3 min read</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<style>
+                .hide-scrollbar::-webkit-scrollbar { display: none; }
+            </style>
+</section>
+<!-- Ask an Expert Section -->
+<section class="mt-2 rounded-xl border border-white/40 bg-surface-container-low/60 backdrop-blur-glass p-6 ambient-bloom relative overflow-hidden">
+<!-- Decorative blur blob -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/30 rounded-full blur-2xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">forum</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-background">Ask an Expert</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-5">Have a specific question about your mental wellbeing routine? Our clinical team is here to help.</p>
+<form class="space-y-3">
+<div class="relative">
+<textarea class="w-full rounded-lg border border-outline-variant/50 bg-white/50 backdrop-blur-[8px] p-3 font-body-sm text-on-background focus:border-secondary focus:ring-1 focus:ring-secondary outline-none resize-none transition-all" placeholder="Type your question here..." rows="3"></textarea>
+</div>
+<button class="w-full bg-primary text-white font-label-md text-label-md py-3 rounded-lg btn-pulse shadow-sm flex items-center justify-center gap-2" type="button">
+                        Submit Question <span class="material-symbols-outlined text-[16px]">send</span>
+</button>
+</form>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Semantic Shell: Present as top-level destination) -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center bg-white/40 backdrop-blur-glass py-3 px-2 pb-safe shadow-[0_-10px_40px_rgba(0,0,0,0.03)] border-t-0">
+<button class="flex flex-col items-center gap-1 p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">dashboard</span>
+<span class="font-label-md text-[10px]">Dashboard</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">psychology</span>
+<span class="font-label-md text-[10px]">Tools</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-primary font-bold">
+<div class="absolute -top-1 bg-primary w-8 h-1 rounded-full"></div>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">psychiatry</span>
+<span class="font-label-md text-[10px]">Expert Tips</span>
+</button>
+<button class="flex flex-col items-center gap-1 p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">forum</span>
+<span class="font-label-md text-[10px]">Community</span>
+</button>
+</nav>
+<style>
+        .pb-safe { padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+    </style>
+</body></html>

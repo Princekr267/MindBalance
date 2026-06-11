@@ -35,11 +35,9 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
       
       let errorMessage = "Authentication failed";
       
-      // Handle array of errors (from express-validator)
       if (error.response?.data?.errors && Array.isArray(error.response.data.errors)) {
         errorMessage = error.response.data.errors.map((err) => err.msg).join(", ");
       } 
-      // Handle single message error (manual returns)
       else if (error.response?.data?.msg) {
         errorMessage = error.response.data.msg;
       }
@@ -61,8 +59,6 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
     e.stopPropagation();
     console.log("GitHub button clicked!");
     alert("GitHub login clicked - authenticating...");
-    // Simulate GitHub OAuth flow
-    // In production, this would redirect to GitHub OAuth
     const githubUser = {
       name: 'GitHub User',
       email: 'user@github.com',
@@ -80,7 +76,7 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md"
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
@@ -88,23 +84,23 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
         transition={{ duration: 0.3 }}
-        className="relative w-full max-w-md mx-4 sm:mx-0 rounded-[2rem] border border-white/60 p-8 shadow-2xl shadow-stone-900/10 overflow-y-auto max-h-[85vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-stone-300 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent bg-white/40 backdrop-blur-2xl"
+        className="relative w-full max-w-md mx-4 sm:mx-0 rounded-[2rem] border border-white/10 p-8 shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-y-auto max-h-[85vh] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-white/10 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-transparent dark-glass"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-stone-100 hover:bg-stone-200 transition-all text-stone-500"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-all text-white/50 hover:text-white"
         >
           <X className="w-4 h-4" />
         </button>
 
         {/* Header */}
         <div className="mb-8">
-          <h2 className="text-[#1c1917] text-2xl mb-2 font-serif">
+          <h2 className="text-white text-2xl mb-2 font-serif">
             {mode === 'signup' ? 'Create Account' : 'Welcome Back'}
           </h2>
-          <p className="text-stone-600 text-sm">
+          <p className="text-white/60 text-sm">
             {mode === 'signup'
               ? 'Start your journey to better mental wellness'
               : 'Continue your journey to mental wellness'
@@ -115,22 +111,23 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
+            <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl text-sm">
               {error}
             </div>
           )}
+          
           {/* Name Input - Only show in signup mode */}
           {mode === 'signup' && (
             <div>
-              <label className="block text-stone-700 mb-2 text-sm font-medium">Full Name</label>
+              <label className="block text-white/70 mb-2 text-sm font-medium">Full Name</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name"
-                  className="w-full bg-stone-50 border border-stone-300 rounded-xl px-12 py-3 text-[#1c1917] placeholder:text-stone-500 focus:outline-none focus:border-[#9CAF88] focus:ring-1 focus:ring-[#9CAF88] transition-all"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-12 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#c4f061] focus:ring-1 focus:ring-[#c4f061] transition-all"
                   required
                 />
               </div>
@@ -139,15 +136,15 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
 
           {/* Email Input */}
           <div>
-            <label className="block text-stone-700 mb-2 text-sm font-medium">Email</label>
+            <label className="block text-white/70 mb-2 text-sm font-medium">Email</label>
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" />
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="w-full bg-stone-50 border border-stone-300 rounded-xl px-12 py-3 text-[#1c1917] placeholder:text-stone-500 focus:outline-none focus:border-[#9CAF88] focus:ring-1 focus:ring-[#9CAF88] transition-all"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-12 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#c4f061] focus:ring-1 focus:ring-[#c4f061] transition-all"
                 required
               />
             </div>
@@ -155,21 +152,21 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
 
           {/* Password Input */}
           <div>
-            <label className="block text-stone-700 mb-2 text-sm font-medium">Password</label>
+            <label className="block text-white/70 mb-2 text-sm font-medium">Password</label>
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-400" />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
               <input
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={mode === 'signup' ? 'Create a password' : 'Enter your password'}
-                className="w-full bg-stone-50 border border-stone-300 rounded-xl px-12 py-3 text-[#1c1917] placeholder:text-stone-500 focus:outline-none focus:border-[#9CAF88] focus:ring-1 focus:ring-[#9CAF88] transition-all pr-12"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-12 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#c4f061] focus:ring-1 focus:ring-[#c4f061] transition-all pr-12"
                 required
               />
                <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors focus:outline-none"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/40 hover:text-white transition-colors focus:outline-none"
               >
                 {showPassword ? (
                   <EyeOff className="w-5 h-5" />
@@ -178,14 +175,13 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
                 )}
               </button>
             </div>
-
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#9CAF88] hover:bg-[#8B9D7A] disabled:bg-[#9CAF88]/50 text-white py-3 rounded-xl transition-all mt-6 shadow-lg shadow-[#9CAF88]/20 font-medium disabled:cursor-not-allowed"
+            className="w-full bg-[#c4f061] hover:bg-[#b0d957] disabled:bg-[#c4f061]/50 text-[#151b2b] py-3 rounded-xl transition-all mt-6 shadow-lg shadow-[#c4f061]/20 font-bold disabled:cursor-not-allowed pulse-hover"
           >
             {loading ? 'Please wait...' : (mode === 'signup' ? 'Sign Up' : 'Login')}
           </button>
@@ -193,9 +189,9 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
 
         {/* Divider */}
         <div className="flex items-center gap-3 my-6">
-          <div className="flex-1 h-px bg-stone-200"></div>
-          <span className="text-stone-400 text-sm">or continue with</span>
-          <div className="flex-1 h-px bg-stone-200"></div>
+          <div className="flex-1 h-px bg-white/10"></div>
+          <span className="text-white/40 text-sm">or continue with</span>
+          <div className="flex-1 h-px bg-white/10"></div>
         </div>
 
         {/* Social Login Buttons */}
@@ -203,7 +199,7 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
           <button
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 py-3 rounded-xl transition-all flex items-center justify-center gap-3 font-medium"
+            className="w-full bg-white/5 border border-white/10 hover:bg-white/10 text-white/80 hover:text-white py-3 rounded-xl transition-all flex items-center justify-center gap-3 font-medium"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
               <path
@@ -229,7 +225,7 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
           <button
             type="button"
             onClick={handleGithubLogin}
-            className="w-full bg-white border border-stone-200 hover:bg-stone-50 text-stone-600 py-3 rounded-xl transition-all flex items-center justify-center gap-3 font-medium"
+            className="w-full bg-white/5 border border-white/10 hover:bg-white/10 text-white/80 hover:text-white py-3 rounded-xl transition-all flex items-center justify-center gap-3 font-medium"
           >
             <Github className="w-5 h-5" />
             <span>GitHub</span>
@@ -238,25 +234,25 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
 
         {/* Footer */}
         <div className="mt-6 text-center">
-          <p className="text-stone-500 text-sm">
+          <p className="text-white/40 text-sm">
             {mode === 'signup' ? (
               <>
                 Already have an account?{" "}
                 <button
                   type="button"
                   onClick={() => setMode('login')}
-                  className="text-[#9CAF88] hover:text-[#8B9D7A] font-semibold transition-colors"
+                  className="text-[#c4f061] hover:text-[#b0d957] font-semibold transition-colors"
                 >
                   Login
                 </button>
               </>
             ) : (
               <>
-                Don&apos;t have an account?{" "}
+                Don't have an account?{" "}
                 <button
                   type="button"
                   onClick={() => setMode('signup')}
-                  className="text-[#9CAF88] hover:text-[#8B9D7A] font-semibold transition-colors"
+                  className="text-[#c4f061] hover:text-[#b0d957] font-semibold transition-colors"
                 >
                   Sign Up
                 </button>

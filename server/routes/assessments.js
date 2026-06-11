@@ -12,7 +12,11 @@ router.post('/', auth, async (req, res) => {
       user: req.user.id,
       score: req.body.score,
       level: req.body.level,
-      answers: req.body.answers
+      answers: req.body.answers,
+      mood: req.body.mood,
+      symptoms: req.body.symptoms,
+      triggers: req.body.triggers,
+      intensity: req.body.intensity
     });
 
     const assessment = await newAssessment.save();
@@ -32,6 +36,34 @@ router.get('/', auth, async (req, res) => {
     res.json(assessments);
   } catch (err) {
     console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   DELETE api/assessments/:id
+// @desc    Delete an assessment
+// @access  Private
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const assessment = await Assessment.findById(req.params.id);
+
+    if (!assessment) {
+      return res.status(404).json({ msg: 'Assessment not found' });
+    }
+
+    // Make sure user owns assessment
+    if (assessment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    await assessment.deleteOne();
+
+    res.json({ msg: 'Assessment removed' });
+  } catch (err) {
+    console.error(err.message);
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Assessment not found' });
+    }
     res.status(500).send('Server Error');
   }
 });

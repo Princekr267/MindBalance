@@ -18,6 +18,22 @@ const AssessmentSchema = new mongoose.Schema({
     type: [Number], // Array of scores per question
     required: true
   },
+  mood: {
+    type: String,
+    default: 'Neutral'
+  },
+  symptoms: {
+    type: [String],
+    default: []
+  },
+  triggers: {
+    type: [String],
+    default: []
+  },
+  intensity: {
+    type: Number,
+    default: 5
+  },
   date: {
     type: Date,
     default: Date.now

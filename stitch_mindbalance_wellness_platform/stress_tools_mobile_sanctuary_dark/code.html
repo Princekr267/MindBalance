@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MindBalance - Stress Tools</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Lexend:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#45645e",
+                        "surface-container": "#e9edff",
+                        "surface-bright": "#faf9ff",
+                        "outline-variant": "#c1c8c5",
+                        "surface-tint": "#45645e",
+                        "surface-container-low": "#f1f3ff",
+                        "secondary-fixed": "#e0e0ff",
+                        "tertiary": "#30628a",
+                        "secondary-container": "#b5b9ff",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#dce2f8",
+                        "on-surface": "#151b2b",
+                        "surface-container-highest": "#dce2f8",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#9bcbf8",
+                        "on-secondary-fixed-variant": "#3c417e",
+                        "on-tertiary-fixed": "#001d32",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d3daef",
+                        "inverse-primary": "#accec5",
+                        "secondary": "#545997",
+                        "background": "#faf9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#0f1251",
+                        "on-primary-fixed": "#00201b",
+                        "on-error": "#ffffff",
+                        "surface": "#faf9ff",
+                        "on-secondary-container": "#434785",
+                        "primary-fixed": "#c7eae1",
+                        "on-tertiary-container": "#00395a",
+                        "on-background": "#151b2b",
+                        "surface-container-high": "#e1e8fd",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#bfc2ff",
+                        "on-tertiary-fixed-variant": "#104a70",
+                        "primary-fixed-dim": "#accec5",
+                        "on-primary-fixed-variant": "#2d4c46",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#1b3b35",
+                        "on-surface-variant": "#414846",
+                        "primary-container": "#84a59d",
+                        "tertiary-container": "#73a3ce",
+                        "tertiary-fixed": "#cde5ff",
+                        "inverse-surface": "#293041",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#edf0ff",
+                        "outline": "#717976"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "glass-blur": "16px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "margin-mobile": "20px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Lexend"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Lexend"],
+                        "headline-xl-mobile": ["Lexend"],
+                        "headline-lg": ["Lexend"],
+                        "headline-sm": ["Lexend"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                        "headline-xl-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            /* Fallback to light mode background if theme isn't dark, but instruction asks for "Midnight navy theme" */
+            /* I will apply dark mode classes manually to body for the "Midnight navy theme" request while keeping the light mode base tokens available */
+            background-color: #151b2b; /* on-surface used as dark background */
+            color: #faf9ff; /* surface used as light text */
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient gradient background for midnight navy theme */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 20% 30%, rgba(69, 100, 94, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(84, 89, 151, 0.15) 0%, transparent 50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); /* Darker glass for dark theme */
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Luminous border */
+            box-shadow: 0px 20px 40px rgba(0,0,0,0.2); /* Deeper shadow for dark mode */
+        }
+
+        /* Nav active state for dark theme overrides */
+        .nav-active-override {
+            color: #c7eae1 !important; /* primary-fixed */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased selection:bg-primary-container selection:text-on-primary-container">
+<div class="ambient-bg"></div>
+<!-- Mobile Top NavBar (Adapted from JSON for mobile context) -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-margin-mobile py-4 bg-[#151b2b]/80 backdrop-blur-glass border-b border-white/10 transition-all duration-300 ease-in-out md:hidden">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-primary-fixed">MindBalance</span>
+</div>
+<div class="flex gap-4 items-center">
+<button aria-label="notifications" class="text-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<img alt="User profile photo" class="w-8 h-8 rounded-full border border-white/20 object-cover" data-alt="Close up portrait photo of a young woman with a calm expression. She has dark hair tied back. The lighting is soft and natural, emphasizing a serene mood. The background is a blurred soft sage green, matching the overarching MindBalance UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBneU_EcR0yaQZ-56GohkQVPvrttB4UzjK8ykkb02N-aesnYmzZiMUmQ6no97EyuDopMgRAIfopRajH6d7ljncIaOgUGWzm9ht-aLQ112K0VRXZfTWRiqHYP7FiRDfPAI4HW8TzD93FyIxSyYQiYXN-tZiD5PHmFGmMBqtiLhnJv4ySCPUd1LROAbdYNQ1_yPnBdnjnIA7P4lwBCPsb4vFmiDjbLMPjoaJ16FAfQawrV7rHMGu9w3D9cjVb3RDRCRH8qa1QrU3puBM"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="pt-24 pb-24 px-margin-mobile max-w-container-max mx-auto md:hidden">
+<!-- Header -->
+<div class="mb-8">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-white mb-2">Stress Tools</h1>
+<p class="font-body-md text-body-md text-surface-variant">Find your center with guided techniques.</p>
+</div>
+<!-- Filter Chips -->
+<div class="flex overflow-x-auto gap-3 pb-4 mb-6 -mx-margin-mobile px-margin-mobile no-scrollbar" style="scrollbar-width: none;">
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-primary-fixed text-on-primary-fixed-variant transition-colors">All</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-white/10 text-surface-variant border border-white/10 hover:bg-white/20 transition-colors">Breathing</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-white/10 text-surface-variant border border-white/10 hover:bg-white/20 transition-colors">Meditation</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full font-label-md text-label-md bg-white/10 text-surface-variant border border-white/10 hover:bg-white/20 transition-colors">Physical</button>
+</div>
+<!-- Vertical Scroll of Glassmorphic Cards -->
+<div class="flex flex-col gap-6">
+<!-- Card 1: Box Breathing -->
+<div class="glass-card rounded-xl p-5 relative overflow-hidden group">
+<!-- Subtle background glow -->
+<div class="absolute -right-12 -top-12 w-40 h-40 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-colors duration-500"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<div class="flex gap-2 mb-2">
+<span class="px-2 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-tertiary-container/20 text-tertiary-fixed border border-tertiary-fixed/30">Beginner</span>
+<span class="px-2 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-white/5 text-surface-variant border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span> 5 Min
+                            </span>
+</div>
+<h2 class="font-headline-md text-headline-md text-white mb-1">Box Breathing</h2>
+<p class="font-body-sm text-body-sm text-surface-variant line-clamp-2">A simple technique to reset your nervous system and regain focus.</p>
+</div>
+</div>
+<div class="flex justify-between items-center mt-4 relative z-10 border-t border-white/10 pt-4">
+<div class="flex -space-x-2">
+<img alt="Guide Avatar" class="w-8 h-8 rounded-full border-2 border-[#151b2b] object-cover" data-alt="Headshot of a calm wellness instructor with light hair. They are looking softly at the camera. The background is a soft gradient of deep navy and lavender. The lighting is ethereal and soothing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALzJBQzfTrfd10stjjF7LHvrHphMNURWiJOwkyiG4PQZbdqMr5B_rQTk99FIDSZ7fWRyXSvCesSziu7WHut3biE443GFz5lYCk3ihay7rCleyfTKpL85g_quJ-Oeye7OBiO1M4WFsed0XB-PQt84kBjvsSB8TPcfYQm_DcdVGo4bT8yLKFBTfi-m7AQvD9HeP00fSXyeqZ14u4rw49bw1qFFJPkNyqpOoz23VOJSP0zhEdpaQ_SJmjZwjjU0znPCmrx4SrKh3rVx8"/>
+<span class="w-8 h-8 rounded-full border-2 border-[#151b2b] bg-surface-variant text-[#151b2b] flex items-center justify-center font-label-md text-[10px]">+2k</span>
+</div>
+<button aria-label="Play Box Breathing" class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center hover:bg-primary-fixed-dim transition-all shadow-[0_0_15px_rgba(199,234,225,0.3)] hover:scale-105">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Deep Body Scan -->
+<div class="glass-card rounded-xl p-5 relative overflow-hidden group">
+<div class="absolute -left-12 -bottom-12 w-40 h-40 bg-secondary/20 rounded-full blur-3xl group-hover:bg-secondary/30 transition-colors duration-500"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<div class="flex gap-2 mb-2">
+<span class="px-2 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-secondary-container/20 text-secondary-fixed border border-secondary-fixed/30">Intermediate</span>
+<span class="px-2 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-white/5 text-surface-variant border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span> 15 Min
+                            </span>
+</div>
+<h2 class="font-headline-md text-headline-md text-white mb-1">Deep Body Scan</h2>
+<p class="font-body-sm text-body-sm text-surface-variant line-clamp-2">Systematically release physical tension from head to toe.</p>
+</div>
+</div>
+<div class="flex justify-between items-center mt-4 relative z-10 border-t border-white/10 pt-4">
+<div class="flex -space-x-2">
+<img alt="Guide Avatar" class="w-8 h-8 rounded-full border-2 border-[#151b2b] object-cover" data-alt="Portrait of a meditation guide with dark skin and a gentle smile. The background is a deep midnight navy blue, fitting the dark mode theme. The lighting focuses softly on the face, creating a peaceful and welcoming atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRtyJpF4Tkv7d8_NCu8yx2kL-_BAN2kaH7mABqbJ3jkLP6EK4ib1ZgtLyu3piyaIoszaMf-9qRkF-fFJFmSjDaZKMubfGA_brZGlqW2Dskgw6nEA0djzAGQziZsyn36V8WOO0koq0vhY6kNmWQvpgChTbVc91p4MGZlpGXuiztNX_v3XbEjHZwPXqDsmzVU8gB594B1VIlnRDgPj-EOxl5uRFeaImOfsu6u76Hm_Do9mXokr8ttnhvhGaVq3Dt0-nb3BZbJp6U0AE"/>
+<span class="w-8 h-8 rounded-full border-2 border-[#151b2b] bg-surface-variant text-[#151b2b] flex items-center justify-center font-label-md text-[10px]">+5k</span>
+</div>
+<button aria-label="Play Deep Body Scan" class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center hover:bg-primary-fixed-dim transition-all shadow-[0_0_15px_rgba(199,234,225,0.3)] hover:scale-105">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Unplug Ritual -->
+<div class="glass-card rounded-xl p-5 relative overflow-hidden group">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-32 h-32 bg-tertiary/20 rounded-full blur-3xl group-hover:bg-tertiary/30 transition-colors duration-500"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<div>
+<div class="flex gap-2 mb-2">
+<span class="px-2 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-primary-container/20 text-primary-fixed border border-primary-fixed/30">All Levels</span>
+<span class="px-2 py-1 rounded-full text-[10px] font-semibold tracking-wider uppercase bg-white/5 text-surface-variant border border-white/10 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">schedule</span> 10 Min
+                            </span>
+</div>
+<h2 class="font-headline-md text-headline-md text-white mb-1">Unplug Ritual</h2>
+<p class="font-body-sm text-body-sm text-surface-variant line-clamp-2">A guided transition from work-mode to deep relaxation.</p>
+</div>
+</div>
+<div class="flex justify-between items-center mt-4 relative z-10 border-t border-white/10 pt-4">
+<div class="flex -space-x-2">
+<img alt="Guide Avatar" class="w-8 h-8 rounded-full border-2 border-[#151b2b] object-cover" data-alt="Close-up of a person with short hair looking serene. The background is a soft, blurred lavender color. The lighting is gentle and flattering, creating a tranquil mood suitable for a wellness app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqRoOfyFB29_woIHiQPVdyQAXVYyLICbbFVvJGLSzYk4dWyXasaeVYCYf3j60vX4eYR_fGYmux-kjjpdHnPU1WkwKKX8HcvIbMiENPcOHZpcVBiuZ8e07S_vFik0PGOXTnumo77TRU3Cv29lVfnnhyx-33NEItMp1tFsFcSY4U6zhqrn458mhzX_WVXyk_5phnasTmjDF3EzDJ2QHceR1eZGfRpD6DqESDSZE_5CcwHLsuRvM20Lipj-N06mAyWRVs4FjJ_delbBU"/>
+<span class="w-8 h-8 rounded-full border-2 border-[#151b2b] bg-surface-variant text-[#151b2b] flex items-center justify-center font-label-md text-[10px]">+1.2k</span>
+</div>
+<button aria-label="Play Unplug Ritual" class="w-12 h-12 rounded-full bg-primary-fixed text-on-primary-fixed-variant flex items-center justify-center hover:bg-primary-fixed-dim transition-all shadow-[0_0_15px_rgba(199,234,225,0.3)] hover:scale-105">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom NavBar (Adapted from JSON SideNavBar logic for mobile destination) -->
+<!-- "Stress Tools" is active based on JSON tab_labels: ["Dashboard", "Stress Tools", "Goals", "Expert Tips", "Community"] -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-[#151b2b]/80 backdrop-blur-glass pb-safe pt-2 md:hidden" style="padding-bottom: env(safe-area-inset-bottom);">
+<div class="flex justify-around items-center px-2 py-2">
+<a class="flex flex-col items-center gap-1 p-2 text-surface-variant hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform">dashboard</span>
+<span class="font-label-md text-[10px]">Dashboard</span>
+</a>
+<!-- Active Tab: Stress Tools -->
+<a class="flex flex-col items-center gap-1 p-2 nav-active-override transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] bg-primary-fixed/20 p-1 rounded-full group-hover:-translate-y-1 transition-transform" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-md text-[10px]">Stress Tools</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-surface-variant hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform">flag</span>
+<span class="font-label-md text-[10px]">Goals</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-surface-variant hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform">forum</span>
+<span class="font-label-md text-[10px]">Community</span>
+</a>
+</div>
+</nav>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</body></html>

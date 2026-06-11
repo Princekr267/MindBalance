@@ -16,7 +16,6 @@ export function ProgressView() {
         const allAssessments = response.data;
         setAssessments(allAssessments);
 
-        // Prepare chart data (chronological)
         const sorted = [...allAssessments].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         
         const data = sorted.map((item) => ({
@@ -24,10 +23,8 @@ export function ProgressView() {
           score: item.score
         }));
         
-        // Take last 10 for readability
         setChartData(data.slice(-10));
 
-        // Calculate average
         if (allAssessments.length > 0) {
           const avg = allAssessments.reduce((sum, c) => sum + c.score, 0) / allAssessments.length;
           setAverageScore(Math.round(avg * 10) / 10);
@@ -44,32 +41,31 @@ export function ProgressView() {
     if (chartData.length < 2) return null;
     const first = chartData[0].score;
     const last = chartData[chartData.length - 1].score;
-    // Lower score is better for Stress/Anxiety
     return last < first ? 'improving' : 'rising';
   };
 
   const trend = getTrend();
 
   return (
-    <div className="min-h-screen px-4 sm:px-8 lg:px-12 py-12 sm:py-16">
+    <div className="py-6">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-3 font-serif">
-          Your Progress
+        <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-3 font-serif">
+          Your Wellness Progress
         </h2>
-        <p className="text-stone-600 mb-10 sm:mb-12">
+        <p className="text-white/60 mb-10 sm:mb-12">
           Track your wellness score over time (Lower is better)
         </p>
 
         {assessments.length === 0 ? (
-          <div className="bg-white/40 backdrop-blur-xl rounded-3xl p-12 border border-white/60 shadow-xl shadow-[#9CAF88]/5 text-center">
-            <Calendar className="w-16 h-16 text-[#9CAF88] mx-auto mb-4" />
-            <h3 className="text-[#1c1917] text-2xl mb-2 font-serif">No Data Yet</h3>
-            <p className="text-stone-600">
+          <div className="dark-glass rounded-3xl p-12 text-center border border-white/10">
+            <Calendar className="w-16 h-16 text-[#c4f061] mx-auto mb-4" />
+            <h3 className="text-white text-2xl mb-2 font-serif">No Data Yet</h3>
+            <p className="text-white/60">
               Complete your first assessment to start tracking.
             </p>
           </div>
@@ -78,39 +74,39 @@ export function ProgressView() {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
               <motion.div
-                className="bg-white/40 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-lg shadow-[#9CAF88]/5"
+                className="dark-glass rounded-2xl p-6 border border-white/10"
               >
-                <div className="text-stone-500 mb-2 font-medium">Total Assessments</div>
-                <div className="text-[#1c1917] text-4xl font-serif">{assessments.length}</div>
+                <div className="text-white/50 mb-2 font-medium">Total Assessments</div>
+                <div className="text-white text-4xl font-serif">{assessments.length}</div>
               </motion.div>
 
               <motion.div
-                className="bg-white/40 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-lg shadow-[#9CAF88]/5"
+                className="dark-glass rounded-2xl p-6 border border-white/10"
               >
-                <div className="text-stone-500 mb-2 font-medium">Avg Score</div>
-                <div className="text-[#1c1917] text-4xl flex items-center gap-2 font-serif">
+                <div className="text-white/50 mb-2 font-medium">Avg Score</div>
+                <div className="text-white text-4xl flex items-center gap-2 font-serif">
                   {averageScore}
-                  <span className="text-xl text-stone-400 font-sans">(Max 21)</span>
+                  <span className="text-xl text-white/30 font-sans">(Max 21)</span>
                 </div>
               </motion.div>
 
               <motion.div
-                className="bg-white/40 backdrop-blur-xl rounded-2xl p-6 border border-white/60 shadow-lg shadow-[#9CAF88]/5"
+                className="dark-glass rounded-2xl p-6 border border-white/10"
               >
-                <div className="text-stone-500 mb-2 font-medium">Trend</div>
-                <div className="text-[#1c1917] text-4xl flex items-center gap-2 font-serif">
+                <div className="text-white/50 mb-2 font-medium">Trend</div>
+                <div className="text-white text-4xl flex items-center gap-2 font-serif">
                   {trend === 'improving' ? (
                     <>
-                      <TrendingDown className="w-10 h-10 text-green-500" />
-                      <span className="text-2xl text-green-600 font-sans">Better</span>
+                      <TrendingDown className="w-10 h-10 text-[#c4f061]" />
+                      <span className="text-2xl text-[#c4f061] font-sans">Better</span>
                     </>
                   ) : trend === 'rising' ? (
                     <>
-                      <TrendingUp className="w-10 h-10 text-orange-500" />
-                      <span className="text-2xl text-orange-600 font-sans">Rising</span>
+                      <TrendingUp className="w-10 h-10 text-orange-400" />
+                      <span className="text-2xl text-orange-400 font-sans">Rising</span>
                     </>
                   ) : (
-                    <span className="text-2xl text-stone-400 font-sans">Stable</span>
+                    <span className="text-2xl text-white/40 font-sans">Stable</span>
                   )}
                 </div>
               </motion.div>
@@ -118,38 +114,39 @@ export function ProgressView() {
 
             {/* Chart */}
             <motion.div
-              className="bg-white/40 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/60 shadow-xl shadow-[#9CAF88]/5 mb-8 sm:mb-12"
+              className="dark-glass rounded-3xl p-6 sm:p-8 border border-white/10 mb-8 sm:mb-12"
             >
-              <h3 className="text-[#1c1917] text-2xl mb-6 font-serif">Score History</h3>
+              <h3 className="text-white text-2xl mb-6 font-serif">Score History</h3>
               <div className="h-64 sm:h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                     <XAxis 
                       dataKey="date" 
-                      stroke="#78716c"
-                      tick={{ fill: '#44403c' }}
+                      stroke="#ffffff40"
+                      tick={{ fill: '#ffffff80' }}
                     />
                     <YAxis 
                       domain={[0, 21]}
-                      stroke="#78716c"
-                      tick={{ fill: '#44403c' }}
+                      stroke="#ffffff40"
+                      tick={{ fill: '#ffffff80' }}
                     />
                     <Tooltip 
                       contentStyle={{
-                        backgroundColor: 'rgba(255,255,255,0.9)',
-                        border: '1px solid rgba(0,0,0,0.1)',
+                        backgroundColor: 'rgba(21, 27, 43, 0.9)',
+                        border: '1px solid rgba(255,255,255,0.1)',
                         borderRadius: '12px',
-                        color: '#1c1917',
-                        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                        color: '#ffffff',
+                        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)'
                       }}
                     />
                     <Line 
                       type="monotone" 
                       dataKey="score" 
-                      stroke="#60a5fa" 
+                      stroke="#c4f061" 
                       strokeWidth={3}
-                      dot={{ fill: '#60a5fa', r: 6 }}
+                      dot={{ fill: '#45645e', stroke: '#c4f061', strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, fill: '#c4f061' }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
