@@ -22,6 +22,7 @@ export function NotepadTool({ title, subtitle, onClose }) {
       <div className="relative w-full max-w-2xl dark-glass rounded-[2rem] border border-white/10 p-6 sm:p-8 flex flex-col h-[80vh] max-h-[600px]">
         <button
           onClick={onClose}
+          aria-label="Close"
           className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white"
         >
           <X className="w-4 h-4" />

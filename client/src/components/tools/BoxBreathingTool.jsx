@@ -56,6 +56,7 @@ export function BoxBreathingTool({ onClose }) {
       <div className="relative w-full max-w-md dark-glass rounded-[2rem] border border-white/10 p-8 text-center">
         <button
           onClick={onClose}
+          aria-label="Close"
           className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white"
         >
           <X className="w-4 h-4" />
