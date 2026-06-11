@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Community - MindBalance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Lexend:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "surface-bright": "#faf9ff",
+                            "secondary": "#545997",
+                            "error-container": "#ffdad6",
+                            "inverse-surface": "#293041",
+                            "on-tertiary-fixed": "#001d32",
+                            "outline": "#717976",
+                            "on-primary": "#ffffff",
+                            "surface-container-highest": "#dce2f8",
+                            "surface-container": "#e9edff",
+                            "on-secondary-fixed-variant": "#3c417e",
+                            "on-primary-container": "#1b3b35",
+                            "on-tertiary": "#ffffff",
+                            "on-secondary": "#ffffff",
+                            "on-tertiary-fixed-variant": "#104a70",
+                            "on-background": "#151b2b",
+                            "on-primary-fixed": "#00201b",
+                            "surface-container-lowest": "#ffffff",
+                            "secondary-fixed": "#e0e0ff",
+                            "tertiary-container": "#73a3ce",
+                            "tertiary": "#30628a",
+                            "tertiary-fixed-dim": "#9bcbf8",
+                            "on-tertiary-container": "#00395a",
+                            "on-error-container": "#93000a",
+                            "surface-container-low": "#f1f3ff",
+                            "primary": "#45645e",
+                            "on-surface-variant": "#414846",
+                            "surface-dim": "#d3daef",
+                            "surface-container-high": "#e1e8fd",
+                            "on-secondary-container": "#434785",
+                            "secondary-fixed-dim": "#bfc2ff",
+                            "primary-fixed": "#c7eae1",
+                            "tertiary-fixed": "#cde5ff",
+                            "on-secondary-fixed": "#0f1251",
+                            "inverse-primary": "#accec5",
+                            "surface": "#faf9ff",
+                            "outline-variant": "#c1c8c5",
+                            "secondary-container": "#b5b9ff",
+                            "primary-container": "#84a59d",
+                            "background": "#faf9ff",
+                            "surface-variant": "#dce2f8",
+                            "on-surface": "#151b2b",
+                            "on-primary-fixed-variant": "#2d4c46",
+                            "surface-tint": "#45645e",
+                            "error": "#ba1a1a",
+                            "on-error": "#ffffff",
+                            "primary-fixed-dim": "#accec5",
+                            "inverse-on-surface": "#edf0ff"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "margin-mobile": "20px",
+                            "margin-desktop": "64px",
+                            "container-max": "1200px",
+                            "gutter": "24px",
+                            "unit": "8px",
+                            "glass-blur": "16px"
+                    },
+                    "fontFamily": {
+                            "body-sm": ["Inter"],
+                            "headline-xl-mobile": ["Lexend"],
+                            "headline-lg": ["Lexend"],
+                            "body-md": ["Inter"],
+                            "headline-sm": ["Lexend"],
+                            "body-lg": ["Inter"],
+                            "headline-xl": ["Lexend"],
+                            "headline-md": ["Lexend"],
+                            "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                            "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                            "headline-xl-mobile": ["36px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                            "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "headline-sm": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                            "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                            "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .bg-midnight-gradient {
+            background: radial-gradient(circle at top left, #1a2235 0%, #0d111a 100%);
+            background-attachment: fixed;
+        }
+
+        .dark-glass {
+            background-color: rgba(21, 27, 43, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 300ms ease;
+        }
+
+        .dark-glass:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.02);
+        }
+
+        .pulse-hover {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pulse-hover:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-midnight-gradient min-h-screen text-white font-body-md relative overflow-x-hidden">
+<!-- TopNavBar (Mobile mainly, but keeping structural intent) -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-margin-desktop py-4 bg-[#151b2b]/80 backdrop-blur-md transition-all duration-300 ease-in-out md:hidden border-b border-white/5">
+<div class="font-headline-md text-headline-md font-bold text-white flex items-center gap-2">
+<div class="w-6 h-6 rounded bg-[#c4f061] flex items-center justify-center">
+<span class="material-symbols-outlined text-[#151b2b] text-[16px]">spa</span>
+</div>
+            MindBalance
+        </div>
+<div class="flex gap-4 items-center">
+<button class="text-white/70 hover:text-white transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-white/70 hover:text-white transition-opacity">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-full py-8 bg-[#151b2b] h-screen w-64 fixed left-0 top-0 transition-all duration-300 ease-in-out z-40 border-r border-white/5 shadow-none">
+<div class="px-6 mb-10 flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-[#c4f061] flex items-center justify-center">
+<span class="material-symbols-outlined text-[#151b2b]" data-icon="spa">spa</span>
+</div>
+<div class="font-headline-sm text-headline-sm font-bold text-white">
+                    MindBalance
+                </div>
+</div>
+<div class="font-body-sm text-body-sm text-white/50 pl-11">
+                Deep Focus Active
+            </div>
+</div>
+<div class="flex-grow px-2">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 py-3 px-4 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 px-4 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">psychology</span>
+                        Stress Tools
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 px-4 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">flag</span>
+                        Goals
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 px-4 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">psychiatry</span>
+                        Expert Tips
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 px-4 text-white bg-white/10 rounded-xl transition-all font-bold font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+                        Community
+                    </a>
+</li>
+</ul>
+</div>
+<div class="px-6 mb-6">
+<button class="w-full bg-[#c4f061] text-[#151b2b] py-3 rounded-full font-bold font-label-md text-label-md pulse-hover">
+                Quick Meditate
+            </button>
+</div>
+<div class="px-2">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 py-3 px-4 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                        Help
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-3 px-4 text-white/60 hover:text-white hover:bg-white/5 rounded-xl transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">logout</span>
+                        Logout
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 md:pt-12 px-margin-mobile md:px-margin-desktop md:ml-64 pb-24 max-w-container-max mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
+<div>
+<h1 class="font-headline-xl text-headline-xl-mobile md:text-[40px] text-white mb-2">Community Space</h1>
+<p class="font-body-lg text-body-lg text-white/60 max-w-2xl">A supportive, anonymous environment to share experiences, find peer support, and discuss mindfulness journeys.</p>
+</div>
+<button class="bg-[#c4f061] text-[#151b2b] px-6 py-3 rounded-full font-bold font-label-md text-label-md pulse-hover flex items-center gap-2 whitespace-nowrap">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit</span>
+                Start a Discussion
+            </button>
+</div>
+<!-- Bento Grid Layout for Community Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column (Filters & Trending) -->
+<div class="lg:col-span-4 space-y-gutter flex flex-col">
+<!-- Topic Cloud -->
+<div class="dark-glass rounded-[24px] p-6">
+<h3 class="font-headline-sm text-[16px] font-semibold text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#b5b9ff]">tag</span>
+                        Topics
+                    </h3>
+<div class="flex flex-wrap gap-3">
+<button class="bg-[#b5b9ff]/10 text-[#b5b9ff] border border-[#b5b9ff]/20 px-4 py-2 rounded-full font-label-md text-label-md hover:bg-[#b5b9ff]/20 transition-colors">#Mindfulness</button>
+<button class="bg-[#c4f061]/10 text-[#c4f061] border border-[#c4f061]/20 px-4 py-2 rounded-full font-label-md text-label-md hover:bg-[#c4f061]/20 transition-colors">#PeerSupport</button>
+<button class="bg-white/5 text-white/70 border border-white/10 px-4 py-2 rounded-full font-label-md text-label-md hover:bg-white/10 hover:text-white transition-colors">#AnxietyRelief</button>
+<button class="bg-white/5 text-white/70 border border-white/10 px-4 py-2 rounded-full font-label-md text-label-md hover:bg-white/10 hover:text-white transition-colors">#DailyGratitude</button>
+<button class="bg-[#b5b9ff]/10 text-[#b5b9ff] border border-[#b5b9ff]/20 px-4 py-2 rounded-full font-label-md text-label-md hover:bg-[#b5b9ff]/20 transition-colors">#SleepHabits</button>
+</div>
+</div>
+<!-- Guidelines Card -->
+<div class="dark-glass rounded-[24px] p-6">
+<h3 class="font-headline-sm text-[16px] font-semibold text-white mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[#c4f061]" style="font-variation-settings: 'FILL' 1;">shield</span>
+                        Safe Space
+                    </h3>
+<p class="font-body-sm text-body-sm text-white/60 mb-4">
+                        This community relies on empathy and respect. Please review our guidelines before posting.
+                    </p>
+<a class="text-[#c4f061] font-label-md text-label-md hover:underline" href="#">Read Guidelines</a>
+</div>
+</div>
+<!-- Right Column (Feed) -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Discussion Card 1 -->
+<div class="dark-glass rounded-[24px] p-8">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-[#b5b9ff]/20 border border-[#b5b9ff]/30 flex items-center justify-center text-[#b5b9ff] font-headline-sm text-headline-sm overflow-hidden shrink-0">
+<img alt="Avatar" class="w-full h-full object-cover opacity-80" data-alt="A soft, out-of-focus portrait of a person representing a gentle, anonymous community avatar. The image has a calm, pastel light-mode aesthetic, utilizing soft whites and subtle lavender tones to convey safety and peace." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0W6lOvVKWztW8LLOvEq9tR5_J9tLq9ZoAO2gkF3EgK7vzMH-Nel8lanrj3tZMSQk9ocd2Ov4uNHcDpjr5aFZ3tVb6jk73u6AG2u5KnR4OCc2eO1GuzUzAAsoMeertin2XZ0FKHfxbA_051BzsQNkNJZIACtnfdiYQIOwEb8DzTA0ExnIU__wf0yCvKkuqTPqvwy1evSd4Iiu9Z6mX8AXjjDeZTrAUfl8E1sVGapdjhr-r6gV4OEx-ZcMVf7_YbTiuwuRZteabb-g"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-[14px] text-white">Anonymous Voyager</span>
+<span class="font-body-sm text-[12px] text-white/40">2 hours ago</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-white font-semibold mb-2">Struggling with maintaining a morning routine</h4>
+<p class="font-body-md text-[16px] text-white/70 line-clamp-3">
+                                I've been trying to meditate for just 10 minutes every morning, but I keep finding myself reaching for my phone instead. The blue light instantly raises my heart rate. Does anyone have gentle strategies for breaking this cycle without being too hard on myself?
+                            </p>
+<div class="flex gap-2 mt-4">
+<span class="text-xs font-semibold text-[#b5b9ff] px-3 py-1 bg-[#b5b9ff]/10 border border-[#b5b9ff]/20 rounded-full">#Mindfulness</span>
+<span class="text-xs font-semibold text-[#b5b9ff] px-3 py-1 bg-[#b5b9ff]/10 border border-[#b5b9ff]/20 rounded-full">#Habits</span>
+</div>
+</div>
+</div>
+<div class="border-t border-white/5 pt-4 mt-4 flex items-center gap-6">
+<button class="flex items-center gap-2 text-white/60 hover:text-[#c4f061] transition-colors font-label-md text-sm">
+<span class="material-symbols-outlined">favorite</span>
+                            24
+                        </button>
+<button class="flex items-center gap-2 text-white/60 hover:text-[#b5b9ff] transition-colors font-label-md text-sm">
+<span class="material-symbols-outlined">chat_bubble</span>
+                            8 Replies
+                        </button>
+</div>
+</div>
+<!-- Discussion Card 2 -->
+<div class="dark-glass rounded-[24px] p-8">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-[#c4f061]/20 border border-[#c4f061]/30 flex items-center justify-center text-[#c4f061] font-headline-sm text-headline-sm overflow-hidden shrink-0">
+                            S
+                        </div>
+<div class="flex-grow">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-[14px] text-white">Seeker_92</span>
+<span class="font-body-sm text-[12px] text-white/40">5 hours ago</span>
+</div>
+<h4 class="font-headline-md text-[20px] text-white font-semibold mb-2">A small win today</h4>
+<p class="font-body-md text-[16px] text-white/70 line-clamp-3">
+                                Just wanted to share that I finally used the deep breathing tool during a stressful meeting instead of panicking. It felt awkward at first, but grounding myself made a huge difference. Thank you to everyone here who encouraged me to try it.
+                            </p>
+<div class="flex gap-2 mt-4">
+<span class="text-xs font-semibold text-[#c4f061] px-3 py-1 bg-[#c4f061]/10 border border-[#c4f061]/20 rounded-full">#PeerSupport</span>
+<span class="text-xs font-semibold text-[#b5b9ff] px-3 py-1 bg-[#b5b9ff]/10 border border-[#b5b9ff]/20 rounded-full">#AnxietyRelief</span>
+</div>
+</div>
+</div>
+<div class="border-t border-white/5 pt-4 mt-4 flex items-center gap-6">
+<button class="flex items-center gap-2 text-[#c4f061] transition-colors font-label-md text-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                            56
+                        </button>
+<button class="flex items-center gap-2 text-white/60 hover:text-[#b5b9ff] transition-colors font-label-md text-sm">
+<span class="material-symbols-outlined">chat_bubble</span>
+                            12 Replies
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

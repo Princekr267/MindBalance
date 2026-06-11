@@ -1,27 +1,27 @@
 import { motion } from "framer-motion";
 import {
   Wind,
-  Moon,
   Flame,
   Sparkles,
-  Heart,
-  Brain,
   Loader2,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { BoxBreathingTool } from "./tools/BoxBreathingTool";
+import { DigitalDetoxTool } from "./tools/DigitalDetoxTool";
+import { NotepadTool } from "./tools/NotepadTool";
 
 const solutions = {
   Low: {
     icon: Sparkles,
-    color: "#10b981",
+    color: "#c4f061",
     title: "Maintenance & Growth",
     description:
       "You're doing well! Keep up these habits to maintain your mental wellness.",
     techniques: [
       {
         name: "Gratitude Practice",
-        description: "Write down 3 things you're grateful for today.",
+        description: "Write down 3 things you're grateful for today. Click to open your notepad.",
         duration: "5 minutes",
       },
       {
@@ -47,7 +47,7 @@ const solutions = {
     techniques: [
       {
         name: "Box Breathing",
-        description: "Inhale 4s, hold 4s, exhale 4s, hold 4s. Repeat.",
+        description: "Inhale 4s, hold 4s, exhale 4s, hold 4s. Repeat. Click to start.",
         duration: "5 minutes",
       },
       {
@@ -57,21 +57,21 @@ const solutions = {
       },
       {
         name: "Digital Detox",
-        description: "Take a break from all screens for at least one hour.",
+        description: "Take a break from all screens for at least one hour. Click to set timer.",
         duration: "1 hour",
       },
     ],
   },
   High: {
     icon: Flame,
-    color: "#ef4444",
+    color: "#ba1a1a",
     title: "Crisis Management & Support",
     description:
       "Your stress levels are high. Prioritize self-care and professional support.",
     techniques: [
       {
         name: "5-4-3-2-1 Grounding",
-        description: "5 things you see, 4 you hear, 3 feel, 2 smell, 1 taste.",
+        description: "5 things you see, 4 you hear, 3 feel, 2 smell, 1 taste. Click to note them down.",
         duration: "3 minutes",
       },
       {
@@ -94,13 +94,13 @@ export function SolutionsView() {
   const [currentLevel, setCurrentLevel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [activeTool, setActiveTool] = useState(null); // { type, title, subtitle }
 
   useEffect(() => {
     const fetchLatestAssessment = async () => {
       try {
         const response = await axios.get("/api/assessments");
         if (response.data && response.data.length > 0) {
-          // Get the most recent assessment
           const latestAssessment = response.data[0];
           setCurrentLevel(latestAssessment.level);
         }
@@ -115,26 +115,32 @@ export function SolutionsView() {
     fetchLatestAssessment();
   }, []);
 
+  const openTool = (tech) => {
+    if (tech.name === "Box Breathing") {
+      setActiveTool({ type: 'box_breathing' });
+    } else if (tech.name === "Digital Detox") {
+      setActiveTool({ type: 'digital_detox' });
+    } else if (tech.name === "Gratitude Practice" || tech.name === "5-4-3-2-1 Grounding") {
+      setActiveTool({ type: 'notepad', title: tech.name, subtitle: tech.description });
+    }
+  };
+
   if (loading) {
     return (
-      <div className="min-h-screen px-4 sm:px-8 lg:px-12 py-12 sm:py-16 flex items-center justify-center">
+      <div className="flex items-center justify-center py-12">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="text-center"
         >
-          <Loader2 className="w-8 h-8 animate-spin text-[#9CAF88] mx-auto mb-4" />
-          <p className="text-stone-600">
+          <Loader2 className="w-8 h-8 animate-spin text-[#c4f061] mx-auto mb-4" />
+          <p className="text-white/60">
             Loading your personalized recommendations...
           </p>
         </motion.div>
       </div>
     );
   }
-
-  // Determine what to show
-  // If we have a level, show that level's content prominently + others
-  // If no level/error, show all
 
   const levelKeys =
     currentLevel && solutions[currentLevel]
@@ -145,134 +151,101 @@ export function SolutionsView() {
       : Object.keys(solutions);
 
   return (
-    <div className="min-h-screen px-4 sm:px-8 lg:px-12 py-12 sm:py-16">
+    <div className="py-6">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="max-w-6xl mx-auto"
       >
-        <h2 className="text-[#1c1917] text-3xl sm:text-4xl lg:text-5xl mb-3 font-serif">
-          Wellness Solutions
+        <h2 className="text-white text-3xl sm:text-4xl lg:text-5xl mb-3 font-serif">
+          Stress Relief Tools
         </h2>
-        <p className="text-stone-600 mb-10 sm:mb-12 text-lg">
-          {currentLevel
-            ? `Based on your assessment, your stress level appears ${currentLevel.toLowerCase()}. Here are some tailored techniques.`
-            : "Evidence-based techniques to help you navigate different emotional states"}
+        <p className="text-white/60 mb-10 sm:mb-12">
+          {currentLevel 
+            ? `Based on your recent check-in, here are your personalized recommendations.`
+            : `Explore coping strategies and techniques for all stress levels.`}
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        <div className="space-y-12">
           {levelKeys.map((level, index) => {
+            const isPrimary = index === 0 && currentLevel;
             const data = solutions[level];
             const Icon = data.icon;
-            const isPersonalized = level === currentLevel;
 
             return (
               <motion.div
                 key={level}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`bg-white/40 backdrop-blur-xl rounded-[2rem] p-8 border shadow-xl hover:shadow-2xl hover:shadow-[#9CAF88]/10 transition-all hover:-translate-y-1 duration-300 ${
-                  isPersonalized
-                    ? "border-[#10b981] ring-2 ring-[#10b981]/20"
-                    : "border-white/60 hover:bg-white/80"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className={`dark-glass rounded-3xl p-6 sm:p-8 lg:p-10 border ${
+                  isPrimary ? 'border-[#c4f061]/50 shadow-[0_0_30px_rgba(196,240,97,0.1)]' : 'border-white/10'
                 }`}
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm"
+                  <div 
+                    className="w-12 h-12 rounded-2xl flex items-center justify-center"
                     style={{ backgroundColor: `${data.color}20` }}
                   >
-                    <Icon className="w-7 h-7" style={{ color: data.color }} />
+                    <Icon className="w-6 h-6" style={{ color: data.color }} />
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-[#1c1917] text-2xl font-serif">
-                        {level} Stress
-                      </h3>
-                      {isPersonalized && (
-                        <span
-                          className="text-xs px-2 py-1 text-white rounded-full"
-                          style={{ backgroundColor: data.color }}
-                        >
-                          Your Level
-                        </span>
-                      )}
-                    </div>
-                    <p className="text-stone-600 font-medium">{data.title}</p>
+                  <div>
+                    <h3 className="text-white text-2xl font-serif">
+                      {data.title}
+                    </h3>
+                    {isPrimary && (
+                      <span className="text-xs uppercase tracking-wider font-bold text-[#c4f061]">Recommended for you</span>
+                    )}
                   </div>
                 </div>
-
-                <p className="text-stone-600 mb-6 italic text-sm">
+                
+                <p className="text-white/70 mb-8 max-w-3xl leading-relaxed">
                   {data.description}
                 </p>
 
-                <div className="space-y-4">
-                  {data.techniques.map((technique, idx) => (
-                    <motion.div
-                      key={idx}
-                      whileHover={{ scale: 1.01 }}
-                      className="bg-white/50 rounded-xl p-4 border border-white/60 hover:border-[#9CAF88]/50 transition-all cursor-pointer shadow-sm"
-                    >
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="text-[#1c1917] font-semibold">
-                          {technique.name}
-                        </h4>
-                        <span
-                          className="text-xs px-2 py-1 rounded-full font-medium"
-                          style={{
-                            backgroundColor: `${data.color}15`,
-                            color: data.color,
-                            border: `1px solid ${data.color}30`,
-                          }}
-                        >
-                          {technique.duration}
-                        </span>
-                      </div>
-                      <p className="text-stone-600 text-sm">
-                        {technique.description}
-                      </p>
-                    </motion.div>
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {data.techniques.map((tech) => {
+                    const isInteractive = ["Box Breathing", "Digital Detox", "Gratitude Practice", "5-4-3-2-1 Grounding"].includes(tech.name);
+                    return (
+                      <motion.div
+                        whileHover={isInteractive ? { scale: 1.02 } : {}}
+                        key={tech.name}
+                        onClick={() => openTool(tech)}
+                        className={`bg-white/5 rounded-2xl p-6 border transition-all ${
+                          isInteractive 
+                            ? 'border-[#c4f061]/30 hover:border-[#c4f061] hover:bg-white/10 cursor-pointer shadow-[inset_0_0_20px_rgba(196,240,97,0.05)]' 
+                            : 'border-white/5 hover:border-white/20 hover:bg-white/10 cursor-default'
+                        } group`}
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className={`font-medium transition-colors ${isInteractive ? 'text-[#c4f061]' : 'text-white group-hover:text-white/90'}`}>
+                            {tech.name}
+                          </h4>
+                          {isInteractive && (
+                            <span className="text-[10px] uppercase font-bold text-[#151b2b] bg-[#c4f061] px-2 py-0.5 rounded-full">Interactive</span>
+                          )}
+                        </div>
+                        <p className="text-white/60 text-sm mb-4 line-clamp-3">
+                          {tech.description}
+                        </p>
+                        <div className="text-xs font-semibold text-white/40 uppercase tracking-wide">
+                          {tech.duration}
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </motion.div>
             );
           })}
         </div>
-
-        {/* Additional Resources */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-12 bg-white/40 backdrop-blur-xl rounded-3xl p-8 border border-white/60 shadow-lg"
-        >
-          <h3 className="text-[#1c1917] text-2xl mb-4 font-serif">Remember</h3>
-          <ul className="space-y-3 text-stone-600">
-            <li className="flex items-start gap-3">
-              <span className="text-[#9CAF88] mt-1 font-bold">•</span>
-              <span>
-                These techniques work best with regular practice, not just
-                during crisis moments
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[#9CAF88] mt-1 font-bold">•</span>
-              <span>
-                What works varies by person—experiment to find your favorites
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[#9CAF88] mt-1 font-bold">•</span>
-              <span>
-                If you're experiencing persistent distress, consider reaching
-                out to a mental health professional
-              </span>
-            </li>
-          </ul>
-        </motion.div>
       </motion.div>
+
+      {/* Interactive Tool Modals */}
+      {activeTool?.type === 'box_breathing' && <BoxBreathingTool onClose={() => setActiveTool(null)} />}
+      {activeTool?.type === 'digital_detox' && <DigitalDetoxTool onClose={() => setActiveTool(null)} />}
+      {activeTool?.type === 'notepad' && <NotepadTool title={activeTool.title} subtitle={activeTool.subtitle} onClose={() => setActiveTool(null)} />}
     </div>
   );
 }

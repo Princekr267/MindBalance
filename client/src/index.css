@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Lexend", sans-serif;
+}
+
 @layer base {
   button, a {
     cursor: pointer;
@@ -11,4 +16,27 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
+}
+
+.ambient-bg {
+  background: radial-gradient(circle at top left, #1a2235 0%, #0d111a 100%);
+  background-color: #0f172a;
+  background-attachment: fixed;
+}
+
+.dark-glass {
+  background-color: rgba(21, 27, 43, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.2);
+}
+
+.pulse-hover {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pulse-hover:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 24px 48px rgba(0,0,0,0.3);
+  border-color: rgba(255, 255, 255, 0.2);
 }

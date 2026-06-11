@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wellness Goals Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary": "#45645e",
+                      "surface-container": "#e9edff",
+                      "surface-bright": "#faf9ff",
+                      "outline-variant": "#c1c8c5",
+                      "surface-tint": "#45645e",
+                      "surface-container-low": "#f1f3ff",
+                      "secondary-fixed": "#e0e0ff",
+                      "tertiary": "#30628a",
+                      "secondary-container": "#b5b9ff",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#dce2f8",
+                      "on-surface": "#151b2b",
+                      "surface-container-highest": "#dce2f8",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#9bcbf8",
+                      "on-secondary-fixed-variant": "#3c417e",
+                      "on-tertiary-fixed": "#001d32",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#d3daef",
+                      "inverse-primary": "#accec5",
+                      "secondary": "#545997",
+                      "background": "#faf9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#0f1251",
+                      "on-primary-fixed": "#00201b",
+                      "on-error": "#ffffff",
+                      "surface": "#faf9ff",
+                      "on-secondary-container": "#434785",
+                      "primary-fixed": "#c7eae1",
+                      "on-tertiary-container": "#00395a",
+                      "on-background": "#151b2b",
+                      "surface-container-high": "#e1e8fd",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#bfc2ff",
+                      "on-tertiary-fixed-variant": "#104a70",
+                      "primary-fixed-dim": "#accec5",
+                      "on-primary-fixed-variant": "#2d4c46",
+                      "on-error-container": "#93000a",
+                      "on-primary-container": "#1b3b35",
+                      "on-surface-variant": "#414846",
+                      "primary-container": "#84a59d",
+                      "tertiary-container": "#73a3ce",
+                      "tertiary-fixed": "#cde5ff",
+                      "inverse-surface": "#293041",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#edf0ff",
+                      "outline": "#717976"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "glass-blur": "16px",
+                      "margin-desktop": "64px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "margin-mobile": "20px",
+                      "container-max": "1200px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Lexend"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Lexend"
+                      ],
+                      "headline-xl-mobile": [
+                              "Lexend"
+                      ],
+                      "headline-lg": [
+                              "Lexend"
+                      ],
+                      "headline-sm": [
+                              "Lexend"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-xl-mobile": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #faf9ff; /* Light mode fallback */
+        }
+        .dark body {
+            background-color: #151b2b; /* Deep Navy from on-surface/inverse-surface palette for Midnight Navy feel */
+            background-image: radial-gradient(circle at 50% 0%, rgba(69, 100, 94, 0.15) 0%, transparent 60%); /* Subtle sage glow */
+        }
+        .backdrop-blur-glass {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0px 20px 40px rgba(0,0,0,0.04);
+        }
+        .dark .glass-card {
+            background: rgba(41, 48, 65, 0.4); /* inverse-surface base with opacity */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 20px 40px rgba(0,0,0,0.2);
+        }
+        .luminous-progress::-webkit-progress-bar {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 9999px;
+        }
+        .dark .luminous-progress::-webkit-progress-bar {
+            background-color: rgba(0,0,0,0.2);
+        }
+        .luminous-progress::-webkit-progress-value {
+            background-color: #84a59d; /* primary-container / sage */
+            border-radius: 9999px;
+            box-shadow: 0 0 10px rgba(132, 165, 157, 0.8);
+        }
+        .dark .luminous-progress::-webkit-progress-value {
+            background-color: #accec5; /* inverse-primary / bright sage */
+            box-shadow: 0 0 12px rgba(172, 206, 197, 0.9);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="dark font-body-md text-body-md text-on-surface dark:text-inverse-on-surface antialiased min-h-screen pb-[100px]">
+<!-- Top Navigation Bar (Mobile Hidden, but kept structurally for rules if needed. Since prompt is mobile version, we'll mostly see TopAppBar style header) -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-margin-mobile py-4 bg-white/40 dark:bg-inverse-surface/40 backdrop-blur-glass border-b border-white/30 dark:border-white/10 shadow-none transition-all duration-300 ease-in-out md:px-margin-desktop">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">
+            MindBalance
+        </div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+</div>
+</header>
+<main class="pt-[80px] px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto flex flex-col gap-[32px]">
+<!-- Header Section -->
+<section class="mt-4">
+<h1 class="font-headline-xl-mobile text-headline-xl-mobile text-on-surface dark:text-inverse-on-surface mb-2">My Goals</h1>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-inverse-primary/80">Track your daily wellness journey.</p>
+</section>
+<!-- Intention Setting Form -->
+<section class="glass-card rounded-xl p-[24px]">
+<h2 class="font-headline-sm text-headline-sm text-on-surface dark:text-inverse-on-surface mb-4">Daily Intention</h2>
+<form class="flex flex-col gap-4">
+<div class="relative">
+<input class="w-full bg-white/50 dark:bg-black/20 backdrop-blur-[8px] border border-white/30 dark:border-white/10 rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface dark:text-inverse-on-surface placeholder:text-on-surface-variant/60 dark:placeholder:text-inverse-on-surface/40 focus:outline-none focus:border-secondary-container dark:focus:border-primary transition-colors" placeholder="I will focus on..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md py-3 px-6 rounded-full hover:opacity-90 transition-opacity self-start" type="button">
+                    Set Intention
+                </button>
+</form>
+</section>
+<!-- Active Focus Cards -->
+<section class="flex flex-col gap-[24px]">
+<h2 class="font-headline-sm text-headline-sm text-on-surface dark:text-inverse-on-surface">Active Focus</h2>
+<!-- Sleep Card -->
+<div class="glass-card rounded-xl p-[24px]">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary-container dark:text-tertiary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bedtime</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface dark:text-inverse-on-surface">Sleep Quality</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-inverse-on-surface/60">Target: 8 Hours</p>
+</div>
+</div>
+<span class="font-headline-md text-headline-md text-primary dark:text-primary-fixed">6.5h</span>
+</div>
+<div class="w-full h-2 rounded-full overflow-hidden">
+<progress class="luminous-progress w-full h-full" max="8" value="6.5"></progress>
+</div>
+</div>
+<!-- Screen Time Card -->
+<div class="glass-card rounded-xl p-[24px]">
+<div class="flex justify-between items-center mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary-container dark:text-secondary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">devices</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface dark:text-inverse-on-surface">Screen Time</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-inverse-on-surface/60">Limit: 4 Hours</p>
+</div>
+</div>
+<span class="font-headline-md text-headline-md text-secondary dark:text-secondary-fixed">2.1h</span>
+</div>
+<div class="w-full h-2 rounded-full overflow-hidden">
+<progress class="luminous-progress w-full h-full" max="4" style="--tw-progress-value: #b5b9ff;" value="2.1"></progress>
+</div>
+</div>
+</section>
+<!-- Milestones Section -->
+<section class="flex flex-col gap-[24px] mb-8">
+<h2 class="font-headline-sm text-headline-sm text-on-surface dark:text-inverse-on-surface">Recent Milestones</h2>
+<div class="flex overflow-x-auto gap-4 pb-4 -mx-margin-mobile px-margin-mobile hide-scrollbar">
+<div class="glass-card rounded-xl p-[24px] min-w-[200px] flex-shrink-0 flex flex-col items-center text-center gap-3">
+<div class="w-12 h-12 rounded-full bg-surface-variant dark:bg-surface-container-highest flex items-center justify-center text-primary dark:text-primary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface dark:text-inverse-on-surface">7 Day Streak</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-inverse-on-surface/60 mt-1">Meditation Habit</p>
+</div>
+</div>
+<div class="glass-card rounded-xl p-[24px] min-w-[200px] flex-shrink-0 flex flex-col items-center text-center gap-3 opacity-60">
+<div class="w-12 h-12 rounded-full bg-surface-variant dark:bg-surface-container-highest flex items-center justify-center text-outline dark:text-outline-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">lock</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface dark:text-inverse-on-surface">Early Bird</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-inverse-on-surface/60 mt-1">Wake up at 6am</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</body></html>
