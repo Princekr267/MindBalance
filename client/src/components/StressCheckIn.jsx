@@ -246,8 +246,11 @@ export function StressCheckIn({ onComplete }) {
   };
 
   const isLastQuestion = step === totalSteps - 1;
-  const canProceed = step === 0 ? mood !== "" : true;
-
+  const gadQuestionIndex = step - 2;
+  const canProceed =
+    step === 0 ? mood !== "" :
+    step === 1 ? true :
+    answers[gadQuestionIndex] !== -1;
   return (
     <div className="flex items-center justify-center py-12">
       <div className="w-full max-w-3xl dark-glass rounded-3xl p-6 sm:p-10 lg:p-12">
