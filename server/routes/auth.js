@@ -137,6 +137,37 @@ router.post('/login', [
   }
 });
 
+// @route   POST api/auth/github
+// @desc    Mock GitHub Login / Sign Up
+// @access  Public
+router.post('/github', async (req, res) => {
+  console.log('GitHub Login Attempt');
+  const email = 'github_user@example.com';
+  const name = 'GitHub User';
 
+  try {
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // Generate random password for model validation requirements
+      const password = Math.random().toString(36).slice(-10) + 'A1!';
+      user = new User({
+        name,
+        email,
+        password
+      });
+      await user.save();
+      console.log('Created Mock GitHub User');
+    }
+
+    const token = generateToken(user.id);
+    console.log('GitHub Login Success:', user.id);
+
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+  } catch (err) {
+    console.error('GitHub Auth Error:', err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;

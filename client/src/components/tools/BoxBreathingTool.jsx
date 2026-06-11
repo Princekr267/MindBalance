@@ -51,6 +51,9 @@ export function BoxBreathingTool({ onClose }) {
     duration = 0;
   }
 
+  const isCircleExpanded = phase === 'Inhale' || phase === 'Hold';
+  const textColorClass = isCircleExpanded ? 'text-[#151b2b]' : 'text-white';
+
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
       <div className="relative w-full max-w-md dark-glass rounded-[2rem] border border-white/10 p-8 text-center">
@@ -61,10 +64,10 @@ export function BoxBreathingTool({ onClose }) {
         >
           <X className="w-4 h-4" />
         </button>
-
+ 
         <h2 className="text-white text-2xl mb-2 font-serif">Box Breathing</h2>
         <p className="text-white/50 text-sm mb-12">Follow the circle to regulate your breathing</p>
-
+ 
         <div className="relative w-48 h-48 mx-auto mb-12 flex items-center justify-center">
           {/* Animated Circle */}
           <motion.div
@@ -74,8 +77,8 @@ export function BoxBreathingTool({ onClose }) {
           />
           {/* Inner Static Text Container */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10 drop-shadow-md">
-             <h3 className="text-[#151b2b] font-bold text-2xl uppercase tracking-widest">{phase}</h3>
-             {isActive && <span className="text-[#151b2b] text-xl font-mono mt-1">{timeLeft}s</span>}
+             <h3 className={`${textColorClass} font-bold text-2xl uppercase tracking-widest transition-colors duration-500`}>{phase}</h3>
+             {isActive && <span className={`${textColorClass} text-xl font-mono mt-1 transition-colors duration-500`}>{timeLeft}s</span>}
           </div>
         </div>
 
