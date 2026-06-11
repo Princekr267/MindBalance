@@ -11,8 +11,8 @@ const MeditationList = ({ score }) => {
     const fetchMeditations = async () => {
       try {
         const url = score 
-          ? `http://127.0.0.1:5000/api/meditations?score=${score}`
-          : 'http://127.0.0.1:5000/api/meditations';
+          ? `/api/meditations?score=${score}`
+          : '/api/meditations';
         
         const res = await axios.get(url);
         setMeditations(res.data);

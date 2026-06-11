@@ -54,21 +54,33 @@ export function SignUpModal({ onClose, onSignUpComplete, initialMode = 'signup' 
     alert("Google login not implemented yet. Please use email signup.");
   };
 
-  const handleGithubLogin = (e) => {
+  const handleGithubLogin = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    setLoading(true);
+    setError("");
     console.log("GitHub button clicked!");
-    alert("GitHub login clicked - authenticating...");
-    const githubUser = {
-      name: 'GitHub User',
-      email: 'user@github.com',
-      authMethod: 'github',
-      createdAt: new Date().toISOString()
-    };
-    localStorage.setItem('mindbalance_user', JSON.stringify(githubUser));
-    localStorage.setItem('mindbalance_auth', 'true');
-    console.log("GitHub OAuth login successful");
-    onSignUpComplete();
+    try {
+      const response = await axios.post('/api/auth/github');
+      localStorage.setItem('token', response.data.token);
+      axios.defaults.headers.common['x-auth-token'] = response.data.token;
+
+      const githubUser = {
+        name: response.data.user.name,
+        email: response.data.user.email,
+        authMethod: 'github',
+        createdAt: new Date().toISOString()
+      };
+      localStorage.setItem('mindbalance_user', JSON.stringify(githubUser));
+      localStorage.setItem('mindbalance_auth', 'true');
+      console.log("GitHub OAuth login successful");
+      onSignUpComplete();
+    } catch (err) {
+      console.error("GitHub auth error:", err);
+      setError(err.response?.data?.msg || "GitHub Authentication failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
